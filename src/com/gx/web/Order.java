@@ -1000,15 +1000,15 @@ public class Order {
         vos = questionService.listanser(qid, vos);
         QuestionPo questionPo = questionService.questionById(qid);
 
-        List<QuestionImgPo> img = questionService.imgByQid(qid);
+       /* List<QuestionImgPo> img = questionService.imgByQid(qid);
         List<QuestionVideoPo> video = questionService.videoByQid(qid);
-        Integer anserPo = anserService.selectByImg("c6387043021848099be126af633502f6.jpg");
+        Integer anserPo = anserService.selectByImg("c6387043021848099be126af633502f6.jpg");*/
         mv.addObject("list", vos);
-        mv.addObject("name", questionPo.getTitle());
+       mv.addObject("name", questionPo.getTitle());
         mv.addObject("qid", questionPo.getId());
-        mv.addObject("img", img);
+        /* mv.addObject("img", img);
         mv.addObject("video", video);
-        mv.addObject("listimg", anserPo);
+        mv.addObject("listimg", anserPo);*/
         return mv;
     }
 
