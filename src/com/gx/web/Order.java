@@ -350,7 +350,7 @@ public class Order {
 
     //入住情况
     @RequestMapping("occupancy")
-    public ModelAndView getTimeSelectRoom(String time, Integer currentPage) {
+    public ModelAndView getTimeSelectRoom(@RequestParam(value = "time",required = false) String time,@RequestParam(value = "currentPage",required = false) Integer currentPage) {
         ModelAndView mv = null;
         mv = new ModelAndView("/order/accommodationfinance");
         if (currentPage == null) {
@@ -1805,7 +1805,12 @@ public class Order {
     //改
 //全部订单
     @RequestMapping("/allorder")
-    public ModelAndView allorder(String platform, String order, String reserName, String passName, Integer currentPage, Integer status) {
+    public ModelAndView allorder(@RequestParam(value = "platform",required = false) String platform,
+                                 @RequestParam(value = "order",required = false) String order,
+                                 @RequestParam(value = "reserName",required = false) String reserName,
+                                 @RequestParam(value = "passName",required = false) String passName,
+                                 @RequestParam(value = "currentPage",required = false) Integer currentPage,
+                                 @RequestParam(value = "status",required = false) Integer status) {
         ModelAndView mv = null;
         mv = new ModelAndView("/order/allorder");
         if (currentPage == null) {
