@@ -9,10 +9,7 @@ import com.gx.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import com.gx.service.PlatformService;
@@ -566,7 +563,11 @@ public class Order {
     //添加订单
     @ResponseBody
     @RequestMapping("addOrder")
-    public Object add(OrderPo orderPo, Integer continuedRoom, String name, String genderName, String phoneNumber) {
+    public Object add(@ModelAttribute OrderPo orderPo,
+                      @RequestParam(value = "continuedRoom",required = false)Integer continuedRoom,
+                      @RequestParam(value = "name",required = false)String name,
+                      @RequestParam(value = "genderName",required = false)String genderName,
+                      @RequestParam(value = "phoneNumber",required = false)String phoneNumber) {
         ModelAndView mv = null;
         mv = new ModelAndView("/order/accommodation");
         int count = passengerService.selectYZ(name, phoneNumber);
