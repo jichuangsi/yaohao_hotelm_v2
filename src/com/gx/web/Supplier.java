@@ -7,6 +7,7 @@ import com.gx.service.RoomSetService;
 import com.gx.service.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -55,7 +56,7 @@ public class Supplier {
     }
     @ResponseBody
     @RequestMapping("/add")
-    public Object add(SupplierPo supplierPo){
+    public Object add(@ModelAttribute SupplierPo supplierPo){
         ModelAndView mv=null;
         supplierPo.setHave(1);
       Integer count=supplierService.insertAll(supplierPo);
@@ -75,7 +76,7 @@ public class Supplier {
     }
 
     @RequestMapping("/update")
-    public ModelAndView update(SupplierPo supplierPo){
+    public ModelAndView update(@ModelAttribute SupplierPo supplierPo){
         ModelAndView mv=null;
         supplierService.updateById(supplierPo);
         mv=new ModelAndView("redirect:/Supplier/hotelmManagement.do");
@@ -106,7 +107,7 @@ public class Supplier {
     }
     @ResponseBody
     @RequestMapping(value="/YZ")
-    public Object YZ(String name){
+    public Object YZ(@RequestParam(value = "name",required = false)String name){
         int YorN=supplierService.selectYZ(name);
         Gson gson =new Gson();
         return gson.toJson(YorN);
@@ -121,7 +122,7 @@ public class Supplier {
     }
 
     @RequestMapping("/padd")
-    public ModelAndView padd(SupplierPo supplierPo){
+    public ModelAndView padd(@ModelAttribute SupplierPo supplierPo){
         ModelAndView mv=null;
         supplierPo.setHave(2);
         supplierService.insertAll(supplierPo);

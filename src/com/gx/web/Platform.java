@@ -8,6 +8,7 @@ import com.gx.vo.ResponseModel;
 import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -56,7 +57,7 @@ public class Platform {
     }
     @ResponseBody
     @RequestMapping("/add")
-    public Object add(PlatformPo platformPo){
+    public Object add(@ModelAttribute PlatformPo platformPo){
         ModelAndView mv=null;
         Integer count= platformService.insertAll(platformPo);
         /*mv=new ModelAndView("redirect:/Platform/tolist.do");
@@ -75,7 +76,7 @@ public class Platform {
     }
 
     @RequestMapping("/update")
-    public ModelAndView update(PlatformPo platformPo){
+    public ModelAndView update(@ModelAttribute PlatformPo platformPo){
         ModelAndView mv=null;
         platformService.updateById(platformPo);
         mv=new ModelAndView("redirect:/Platform/tolist.do");
@@ -104,7 +105,7 @@ public class Platform {
     }
     @ResponseBody
     @RequestMapping(value="/YZ")
-    public Object YZ(String name){
+    public Object YZ(@RequestParam(value = "name",required = false)String name){
         int YorN=platformService.selectYZ(name);
         Gson gson =new Gson();
         return gson.toJson(YorN);

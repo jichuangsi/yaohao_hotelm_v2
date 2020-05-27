@@ -7,6 +7,7 @@ import com.gx.service.*;
 import com.gx.vo.RoomVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -84,7 +85,7 @@ public class RoomSet {
 
 	@ResponseBody
 	@RequestMapping("/add")
-	public Object add(RoomSetPo roomSetPo){
+	public Object add(@ModelAttribute RoomSetPo roomSetPo){
 		ModelAndView mv=null;
 		Timestamp d = new Timestamp(System.currentTimeMillis());
 		roomSetPo.setTime(System.currentTimeMillis());
@@ -113,7 +114,7 @@ public class RoomSet {
 	}
 	@ResponseBody
 	@RequestMapping("/update")
-	public Object update(RoomSetPo roomSetPo){
+	public Object update(@ModelAttribute RoomSetPo roomSetPo){
 		ModelAndView mv=null;
 		Integer count=0;
 		Integer roomA=orderService.roomAcountu(roomSetPo.getId());
@@ -147,7 +148,8 @@ public class RoomSet {
 	
 	@ResponseBody
 	@RequestMapping(value="/YZ")
-	public Object YZ(String roomNumber,Integer supplierID){
+	public Object YZ(@RequestParam(value = "roomNumber",required = false)String roomNumber,
+					 @RequestParam(value = "supplierID",required = false)Integer supplierID){
 		int YorN=roomSetService.selectYZ(roomNumber,supplierID);
 		Gson gson =new Gson();
 		return gson.toJson(YorN);
@@ -169,7 +171,8 @@ public class RoomSet {
 	 */
 	@ResponseBody
 	@RequestMapping("/updateAcount")
-	public Object updateAcount(int id,Integer roomAcount){
+	public Object updateAcount( @RequestParam(value = "id",required = false)int id,
+								@RequestParam(value = "roomAcount",required = false)Integer roomAcount){
 		ModelAndView mv=null;
 		Integer count=0;
 		Integer roomA=orderService.roomAcountu(id);

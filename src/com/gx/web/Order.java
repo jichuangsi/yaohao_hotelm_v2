@@ -464,7 +464,8 @@ public class Order {
     //入住情况
     @ResponseBody
     @RequestMapping("joccupancy")
-    public Object joccupancy(String time, Integer currentPage) {
+    public Object joccupancy(@RequestParam(value = "time",required = false)String time,
+                             @RequestParam(value = "currentPage",required = false)Integer currentPage) {
         ModelAndView mv = null;
         mv = new ModelAndView("/order/accommodationfinance");
         if (currentPage == null) {
@@ -643,7 +644,9 @@ public class Order {
     //修改订单状态
     @ResponseBody
     @RequestMapping("updateStatus")
-    public Object updateStatus(Integer orderNumber, Integer status, String time) {
+    public Object updateStatus(@RequestParam(value = "orderNumber",required = false)Integer orderNumber,
+                               @RequestParam(value = "status",required = false)Integer status,
+                               @RequestParam(value = "time",required = false)String time) {
         Integer counts = 0;
         counts = orderService.updateStatus(orderNumber, status);
         OrderDetailsVo orderPo = orderService.selectById(orderNumber);//根据订单号查询订单
@@ -718,7 +721,7 @@ public class Order {
     //新增消费订单
     @ResponseBody
     @RequestMapping("addFinance")
-    public Object addFinance(FinancePo financePo) {
+    public Object addFinance(@ModelAttribute FinancePo financePo) {
         ModelAndView mv = null;
         mv = new ModelAndView();/*
         FinancePo po=financeService.selectByyearM(fin)*/
@@ -731,7 +734,7 @@ public class Order {
     //新增日常消费
     @ResponseBody
     @RequestMapping("dailyconsumption")
-    public Object dailyconsumption(DailyconsumptionPo po) {
+    public Object dailyconsumption(@ModelAttribute DailyconsumptionPo po) {
         ModelAndView mv = null;
         mv = new ModelAndView();
         Timestamp d = new Timestamp(System.currentTimeMillis());
@@ -777,7 +780,7 @@ public class Order {
     //新增提成
     @ResponseBody
     @RequestMapping("booking")
-    public Object booking(BookingcommissionPo po) {
+    public Object booking(@ModelAttribute BookingcommissionPo po) {
         ModelAndView mv = null;
         mv = new ModelAndView();
         Integer count = 0;
@@ -849,7 +852,7 @@ public class Order {
 
     //修改日常消费
     @RequestMapping("upconsumption")
-    public ModelAndView upconsumption(DailyconsumptionPo po) {
+    public ModelAndView upconsumption(@ModelAttribute DailyconsumptionPo po) {
         ModelAndView mv = null;
         mv = new ModelAndView("");
         DailyconsumptionPo po1 = dailyconsumptionService.selectById(po.getId());
@@ -868,7 +871,7 @@ public class Order {
     //删除日常消费
     @ResponseBody
     @RequestMapping("deletedaily")
-    public Object deletedaily(Integer id) {
+    public Object deletedaily( @RequestParam(value = "id",required = false)Integer id) {
         Integer count = dailyconsumptionService.delByid(id);
         Gson gson = new Gson();
         return gson.toJson(count);
@@ -877,7 +880,7 @@ public class Order {
     //新增消费类型
     @ResponseBody
     @RequestMapping("addType")
-    public Object addType(ConsumptiontypePo po) {
+    public Object addType(@ModelAttribute ConsumptiontypePo po) {
         ModelAndView mv = null;
         mv = new ModelAndView();
         Integer count = 0;
@@ -894,7 +897,8 @@ public class Order {
     //新增消费类型
     @ResponseBody
     @RequestMapping("updateType")
-    public Object updateType(Integer id, Integer status) {
+    public Object updateType(@RequestParam(value = "id",required = false)Integer id,
+                             @RequestParam(value = "status",required = false)Integer status) {
         /*Integer count=consumptiontypeService.updateStatus(status, id);*/
         Integer count = consumptiontypeService.delete(id);
         Gson gson = new Gson();
@@ -904,7 +908,8 @@ public class Order {
     //按月显示每天有几个人
     @ResponseBody
     @RequestMapping("monthRoom")
-    public Object monthRoom(String time, Integer roomId) throws Exception {
+    public Object monthRoom(@RequestParam(value = "time",required = false)String time,
+                            @RequestParam(value = "roomId",required = false)Integer roomId) throws Exception {
         ModelAndView mv = new ModelAndView();
         if (time == null) {
             Calendar calendar = Calendar.getInstance();
@@ -1038,7 +1043,8 @@ public class Order {
 
     @ResponseBody
     @RequestMapping("janserByQid")
-    public Object janserByQid(Integer qid, Integer currentPage) {
+    public Object janserByQid(@RequestParam(value = "qid",required = false)Integer qid,
+                              @RequestParam(value = "currentPage",required = false)Integer currentPage) {
         if (currentPage == null) {
             currentPage = 1;
         } else if (currentPage == 0) {
@@ -1053,7 +1059,7 @@ public class Order {
 
     @ResponseBody
     @RequestMapping("delimg")
-    public Object delimg(Integer id) {
+    public Object delimg(@RequestParam(value = "id",required = false)Integer id) {
         QuestionImgPo img = questionService.selectImgByid(id);
         String pathUrl = System.getProperty("bookdir");
         String url = pathUrl.substring(0, pathUrl.length() - 1) + img.getQimg();
@@ -1069,7 +1075,7 @@ public class Order {
 
     @ResponseBody
     @RequestMapping("delvideo")
-    public Object delvideo(Integer id) {
+    public Object delvideo(@RequestParam(value = "id",required = false)Integer id) {
         QuestionVideoPo questionVideoPo = questionService.selectVideoByid(id);
         String pathUrl = System.getProperty("bookdir");
         String url = pathUrl.substring(0, pathUrl.length() - 1) + questionVideoPo.getUpload();
@@ -1085,7 +1091,7 @@ public class Order {
 
     @ResponseBody
     @RequestMapping("imgByQid")
-    public Object imgByQid(Integer qid) {
+    public Object imgByQid(@RequestParam(value = "qid",required = false)Integer qid) {
         List<QuestionImgPo> img = questionService.imgByQid(qid);
         List<QuestionVideoPo> video = questionService.videoByQid(qid);
         Gson gson = new Gson();
@@ -1094,7 +1100,7 @@ public class Order {
 
     @ResponseBody
     @RequestMapping("videoByQid")
-    public Object videoByQid(Integer qid) {
+    public Object videoByQid(@RequestParam(value = "qid",required = false)Integer qid) {
         List<QuestionVideoPo> video = questionService.videoByQid(qid);
         Gson gson = new Gson();
         return gson.toJson(video);
@@ -1103,7 +1109,7 @@ public class Order {
     //新增问题
     @ResponseBody
     @RequestMapping("addquestion")
-    public Object addquestion(String title) {
+    public Object addquestion(@RequestParam(value = "title",required = false)String title) {
         ModelAndView mv = null;
         mv = new ModelAndView("/order/question");
         QuestionPo questionPo = new QuestionPo();
@@ -1122,7 +1128,7 @@ public class Order {
     //根据id查询问题
     @ResponseBody
     @RequestMapping("getquestion")
-    public Object getquestion(Integer id) {
+    public Object getquestion(@RequestParam(value = "id",required = false)Integer id) {
         QuestionPo questionPo = questionService.questionById(id);
         Gson gson = new Gson();
         return gson.toJson(questionPo);
@@ -1131,7 +1137,7 @@ public class Order {
     //修改问题
     @ResponseBody
     @RequestMapping("upquestion")
-    public Object upquestion(QuestionPo po) {
+    public Object upquestion(@ModelAttribute QuestionPo po) {
         po.setCreateTime(System.currentTimeMillis());
         Integer count = 0;
         if (po.getId() != null) {
@@ -1145,7 +1151,7 @@ public class Order {
     //删除问题
     @ResponseBody
     @RequestMapping("deleteQuestions")
-    public Object deleteQuestions(Integer id) {
+    public Object deleteQuestions(@RequestParam(value = "id",required = false)Integer id) {
         Integer count = 0;
         count = questionService.deleteById(id);
         anserService.delByquestionId(id);
@@ -1179,7 +1185,8 @@ public class Order {
     //新增问题回答
     @ResponseBody
     @RequestMapping("addAnser")
-    public Object addAnser(String title, Integer questionId) {
+    public Object addAnser(@RequestParam(value = "title",required = false)String title,
+                           @RequestParam(value = "questionId",required = false)Integer questionId) {
         AnserPo po = new AnserPo();
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         po.setTime(timestamp);
@@ -1200,7 +1207,7 @@ public class Order {
     //修改问题回答
 
     @RequestMapping("upanser")
-    public ModelAndView upanser(AnserPo po) {
+    public ModelAndView upanser(@ModelAttribute  AnserPo po) {
         ModelAndView mv = null;
         mv = new ModelAndView("redirect:/Order/anserByQid.do");
         mv.addObject("qid", po.getQuestionId());
@@ -1213,7 +1220,7 @@ public class Order {
     //删除问题回答
     @ResponseBody
     @RequestMapping("deleteAnser")
-    public Object deleteAnser(Integer id) {
+    public Object deleteAnser(@RequestParam(value = "id",required = false)Integer id) {
         Integer count = anserService.delById(id);
         Gson gson = new Gson();
         return gson.toJson(count);
@@ -1390,7 +1397,8 @@ public class Order {
     //点击消费显示消费详情(订单)
     @ResponseBody
     @RequestMapping("financeDatil")
-    public Object financeDatil(String time, Integer roomId) {
+    public Object financeDatil(@RequestParam(value = "time",required = false)String time,
+                               @RequestParam(value = "roomId",required = false)Integer roomId) {
         List<OrderDetailsVo> list = orderService.fianceorder(roomId, time);
         Gson gson = new Gson();
         return gson.toJson(list);
@@ -1399,7 +1407,9 @@ public class Order {
     //点击其他消费显示消费详情(订单)
     @ResponseBody
     @RequestMapping("otherDatil")
-    public Object financeDatil(Integer roomId, Integer cid, String time) {
+    public Object financeDatil(@RequestParam(value = "roomId",required = false)Integer roomId,
+                               @RequestParam(value = "cid",required = false)Integer cid,
+                               @RequestParam(value = "time",required = false)String time) {
         List<DailyconsumptionPo> list = dailyconsumptionService.dailydateil(roomId, cid, time);
         Gson gson = new Gson();
         return gson.toJson(list);
@@ -1408,7 +1418,7 @@ public class Order {
     //根据id查询消费
     @ResponseBody
     @RequestMapping("dayById")
-    public Object selelcDay(Integer id) {
+    public Object selelcDay(@RequestParam(value = "id",required = false)Integer id) {
         DailyconsumptionPo da = dailyconsumptionService.selectById(id);
         Gson gson = new Gson();
         return gson.toJson(da);
@@ -1442,7 +1452,9 @@ public class Order {
 
     @ResponseBody
     @RequestMapping("update")
-    public Object update(OrderPo orderPo, String name, Integer genderName, String phoneNumber) {
+    public Object update(@ModelAttribute OrderPo orderPo, @RequestParam(value = "name",required = false)String name,
+                         @RequestParam(value = "genderName",required = false)Integer genderName,
+                         @RequestParam(value = "phoneNumber",required = false)String phoneNumber) {
         PassengerPo passengerPo = new PassengerPo();
         passengerPo.setId(orderPo.getPassengerId());
         passengerPo.setName(name);
@@ -1482,7 +1494,7 @@ public class Order {
 
     @ResponseBody
     @RequestMapping("updateCheckinDay")
-    public Object updateCheckinDay(OrderPo orderPo) {
+    public Object updateCheckinDay(@ModelAttribute OrderPo orderPo) {
         int t = 0;
         int ok = 0;
         Gson gson = new Gson();
@@ -1554,7 +1566,7 @@ public class Order {
     //验证订单号是否存在
     @ResponseBody
     @RequestMapping("codeNumberYZ")
-    public Object codeNumberYZ(String orderNumber) {
+    public Object codeNumberYZ(@RequestParam(value = "orderNumber",required = false)String orderNumber) {
         Integer count = orderService.codeNumberYZ(orderNumber);
         Gson gson = new Gson();
         return gson.toJson(count);
@@ -1595,7 +1607,7 @@ public class Order {
     //到账
     @ResponseBody
     @RequestMapping("isdao")
-    public Object isdao(Integer id) {
+    public Object isdao(@RequestParam(value = "id",required = false)Integer id) {
         Timestamp d = new Timestamp(System.currentTimeMillis());
         Integer count = orderService.updateMoney(id, d);
         Gson gson = new Gson();
@@ -1605,7 +1617,7 @@ public class Order {
 
     @ResponseBody
     @RequestMapping("checkinDay")
-    public Object checkinDay(OrderPo orderPo) {
+    public Object checkinDay(@ModelAttribute OrderPo orderPo) {
         String strn = new SimpleDateFormat("yyyy-MM-dd").format(orderPo.getCheckinTime());
         List<IndayVo> count = orderService.checkinDay(strn, orderPo.getRoomId());//查询是否有人住
         RoomSetPo roomSetPo = roomSetService.selectById(orderPo.getRoomId());
@@ -1655,7 +1667,7 @@ public class Order {
     ///////////////导出excel////////////////////
     @ResponseBody
     @RequestMapping("/excel2")
-    public Object list(String time) {
+    public Object list(@RequestParam(value = "time",required = false)String time) {
         String time2 = null;
         if (time == null || time == "") {//默认当前月
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -1899,7 +1911,8 @@ public class Order {
 
     @ResponseBody
     @RequestMapping("register")
-    public Object register(PassengerPo po, Integer orderId, String gender) {
+    public Object register(@ModelAttribute PassengerPo po,@RequestParam(value = "orderId",required = false) Integer orderId,
+                           @RequestParam(value = "gender",required = false)String gender) {
         int count = passengerService.selectYZ(po.getName(), po.getPhoneNumber());
         int paId = 1;
         if (gender.equalsIgnoreCase("男")) {

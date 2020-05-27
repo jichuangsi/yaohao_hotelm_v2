@@ -11,6 +11,7 @@ import com.gx.vo.RoomVo;
 import com.gx.vo.WholeOrderRoomVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -115,7 +116,8 @@ public class WholeHotel {
     //按月显示每天有几个人
     @ResponseBody
     @RequestMapping("monthRoom")
-    public Object monthRoom(String time,Integer typeid)throws Exception{
+    public Object monthRoom( @RequestParam(value = "time",required = false)String time,
+                             @RequestParam(value = "typeid",required = false)Integer typeid)throws Exception{
         if (time==null){
             Calendar calendar = Calendar.getInstance();
             int year = calendar.get(Calendar.YEAR);
@@ -168,7 +170,7 @@ public class WholeHotel {
 //==============================================================================================================//
     @ResponseBody
     @RequestMapping("/nameYZ")
-    public Object nameYZ(guestRoomLevelPo po) {
+    public Object nameYZ(@ModelAttribute guestRoomLevelPo po) {
         ModelAndView mv = null;
         Integer count=guestRoomLevelService.nameYZ(po);
         Gson gson=new Gson();
@@ -177,7 +179,7 @@ public class WholeHotel {
 
     @ResponseBody
     @RequestMapping("/YZ")
-    public Object YZ(String name) {
+    public Object YZ( @RequestParam(value = "name",required = false)String name) {
         ModelAndView mv = null;
         Integer count=guestRoomLevelService.YZ(name);
         Gson gson=new Gson();
@@ -187,7 +189,7 @@ public class WholeHotel {
 
     @ResponseBody
     @RequestMapping("/room")
-    public Object room(Integer guestId) {
+    public Object room(@RequestParam(value = "guestId",required = false)Integer guestId) {
         ModelAndView mv = null;
        List<WholeOrderRoomVo> tlist=roomSetService.selectSupplierByGuest(guestId);
         Gson gson=new Gson();
@@ -195,7 +197,7 @@ public class WholeHotel {
     }
     @ResponseBody
     @RequestMapping("/YZDay")
-    public Object YZDay(OrderPo orderPo) {
+    public Object YZDay(@ModelAttribute OrderPo orderPo) {
         String checkinTime=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(orderPo.getCheckinTime());
         String checkoutTime=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(orderPo.getCheckoutTime());
         List<String> list=TimeTransformation.cutDate("M",checkinTime,checkoutTime);
@@ -213,7 +215,8 @@ public class WholeHotel {
 
     @ResponseBody
     @RequestMapping("/rommByHotelAndGuest")
-    public Object rommByHotel(Integer supplierId,Integer guestId) {
+    public Object rommByHotel(@RequestParam(value = "supplierId",required = false)Integer supplierId,
+                              @RequestParam(value = "guestId",required = false)Integer guestId) {
         List<RoomSetPo> list=roomSetService.roomByHotelAndGuest(guestId,supplierId);
         Gson gson=new Gson();
         return gson.toJson(list);
@@ -221,7 +224,11 @@ public class WholeHotel {
     //添加订单
     @ResponseBody
     @RequestMapping("addOrder")
-    public Object add(OrderPo orderPo,Integer continuedRoom,String name,String genderName,String phoneNumber) {
+    public Object add(@ModelAttribute OrderPo orderPo,
+                      @RequestParam(value = "continuedRoom",required = false)Integer continuedRoom,
+                      @RequestParam(value = "name",required = false)String name,
+                      @RequestParam(value = "genderName",required = false)String genderName,
+                      @RequestParam(value = "phoneNumber",required = false)String phoneNumber) {
         ModelAndView mv = null;
         mv = new ModelAndView("/order/accommodation");
         int count=passengerService.selectYZ(name,phoneNumber);
@@ -277,7 +284,7 @@ public class WholeHotel {
     }
     @ResponseBody
     @RequestMapping("/update")
-    public Object update(RoomSetPo roomSetPo){
+    public Object update(@ModelAttribute RoomSetPo roomSetPo){
         ModelAndView mv=null;
         if (roomSetPo.getSupplierID()==null){
             roomSetPo.setSupplierID(roomSetPo.getSupplierId());

@@ -15,7 +15,9 @@ import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -63,7 +65,9 @@ public class Hotelm {
 
     //自有已订单
     @RequestMapping(value = "/allorder",produces = "text/jsp;charset=UTF-8")
-    public ModelAndView myorder(String orderNumber,String pname,Integer currentPage) {
+    public ModelAndView myorder(@RequestParam(value = "orderNumber",required = false)String orderNumber,
+                                @RequestParam(value = "pname",required = false)String pname,
+                                @RequestParam(value = "currentPage",required = false)Integer currentPage) {
         ModelAndView mv = null;
         mv = new ModelAndView("/public/accommodationaccount");
         if (currentPage==null) {
@@ -85,7 +89,10 @@ public class Hotelm {
 
     //自有已确认订单
     @RequestMapping(value = "/checkinorder",produces = "text/jsp;charset=UTF-8")
-    public ModelAndView checkinorder(String time,String orderNumber,String pname,Integer currentPage) {
+    public ModelAndView checkinorder(@RequestParam(value = "time",required = false)String time,
+                                     @RequestParam(value = "orderNumber",required = false)String orderNumber,
+                                     @RequestParam(value = "pname",required = false)String pname,
+                                     @RequestParam(value = "currentPage",required = false)Integer currentPage) {
         ModelAndView mv = null;
         mv = new ModelAndView("/public/accommodationin");
         if (currentPage==null) {
@@ -113,7 +120,10 @@ public class Hotelm {
 
     //订单明细
     @RequestMapping("/myorderStatistics")
-    public ModelAndView myorderStatistics(Integer isdao,String orderNumber,String pname,Integer currentPage) {
+    public ModelAndView myorderStatistics( @RequestParam(value = "isdao",required = false)Integer isdao,
+                                          @RequestParam(value = "orderNumber",required = false)String orderNumber,
+                                          @RequestParam(value = "pname",required = false)String pname,
+                                          @RequestParam(value = "currentPage",required = false)Integer currentPage) {
         ModelAndView mv = null;
         mv = new ModelAndView("/public/finance1");
         if (currentPage==null) {
@@ -132,7 +142,10 @@ public class Hotelm {
     }
     //财务报表
     @RequestMapping("/myfinance")
-    public ModelAndView myfinance(String time,String orderNumber,String pname,Integer currentPage) {
+    public ModelAndView myfinance( @RequestParam(value = "time",required = false)String time,
+                                  @RequestParam(value = "orderNumber",required = false)String orderNumber,
+                                  @RequestParam(value = "pname",required = false)String pname,
+                                  @RequestParam(value = "currentPage",required = false)Integer currentPage) {
         ModelAndView mv = null;
         mv = new ModelAndView("/public/finance2");
         if (currentPage==null) {
@@ -164,7 +177,8 @@ public class Hotelm {
     //修改状态
       @ResponseBody
     @RequestMapping("/updateStatus")
-    public Object updateStatus(int id,int status){
+    public Object updateStatus(@RequestParam(value = "id",required = false)int id,
+                               @RequestParam(value = "status",required = false)int status){
         ModelAndView mv = null;
         mv = new ModelAndView("redirect:/Hotelm/allorder.do");
           Integer count= publicOrderService.updateStatus(id, status);
@@ -175,7 +189,7 @@ public class Hotelm {
 
     @ResponseBody
     @RequestMapping("/updaDao")
-    public ModelAndView updaDao(int id){
+    public ModelAndView updaDao(@RequestParam(value = "id",required = false)int id){
         ModelAndView mv = null;
         mv = new ModelAndView("redirect:/Hotelm/allorder.do");
         Timestamp d = new Timestamp(System.currentTimeMillis());
@@ -188,7 +202,7 @@ public class Hotelm {
     //添加订单
     @ResponseBody
     @RequestMapping("/addOrder")
-    public Object add(PublicOrderPo orderPo) {
+    public Object add(@ModelAttribute PublicOrderPo orderPo) {
         Timestamp d = new Timestamp(System.currentTimeMillis());
         orderPo.setStatus(1);//已确认
 
@@ -219,7 +233,7 @@ public class Hotelm {
     //验证订单号是否存在
     @ResponseBody
     @RequestMapping("codeNumberYZ")
-    public Object codeNumberYZ(String orderNumber){
+    public Object codeNumberYZ(@RequestParam(value = "orderNumber",required = false)String orderNumber){
         Integer count=publicOrderService.YZ(orderNumber);
         Gson gson = new Gson();
         return gson.toJson(count);
@@ -229,7 +243,7 @@ public class Hotelm {
     //到账
     @ResponseBody
     @RequestMapping("isdao")
-    public Object isdao(int id){
+    public Object isdao(@RequestParam(value = "id",required = false)int id){
         Timestamp d = new Timestamp(System.currentTimeMillis());
         Integer count= publicOrderService.updateDao(id,d);
         Gson gson = new Gson();
@@ -239,7 +253,7 @@ public class Hotelm {
 
     @ResponseBody
     @RequestMapping("checkinDay")
-    public Object checkinDay(OrderPo orderPo){
+    public Object checkinDay(@ModelAttribute OrderPo orderPo){
         String strn = new SimpleDateFormat("yyyy-MM-dd").format(orderPo.getCheckinTime());
         List<IndayVo> count=orderService.checkinDay(strn, orderPo.getRoomId());
         RoomSetPo roomSetPo=roomSetService.selectById(orderPo.getRoomId());
@@ -489,7 +503,10 @@ public class Hotelm {
     //财务报表
     @ResponseBody
     @RequestMapping("/excel2")
-    public Object excel(String time,String orderNumber,String pname,Integer currentPage) {
+    public Object excel(@RequestParam(value = "time",required = false)String time,
+                        @RequestParam(value = "orderNumber",required = false)String orderNumber,
+                        @RequestParam(value = "pname",required = false)String pname,
+                        @RequestParam(value = "currentPage",required = false)Integer currentPage) {
         ModelAndView mv = null;
         if (currentPage==null) {
             currentPage=1;

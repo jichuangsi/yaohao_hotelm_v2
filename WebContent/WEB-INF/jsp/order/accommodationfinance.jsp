@@ -453,7 +453,6 @@
             var hotelmId = $(obj).parent().parent().parent().find('input[name=supplierId]').val();
             var hotelmName = $(obj).parent().parent().parent().find('input[name=supplierName]').val();
             var time = getNowFormatDate();
-            alert(hotelmId)
             form.val('test', {
                 "roomNumber": roomNumber,
                 "roomId": id,

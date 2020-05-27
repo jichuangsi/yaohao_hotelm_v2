@@ -6,6 +6,7 @@ import com.gx.po.UserPo;
 import com.gx.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -61,7 +62,7 @@ public class User {
     }
     @ResponseBody
     @RequestMapping("/add")
-    public Object add(UserPo userPo){
+    public Object add(@ModelAttribute UserPo userPo){
         ModelAndView mv=null;
        int count= userService.insertAll(userPo);
         mv=new ModelAndView("redirect:/User/tolist.do");
@@ -71,7 +72,7 @@ public class User {
     }
 
     @RequestMapping("/update")
-    public ModelAndView update(UserPo userPo){
+    public ModelAndView update(@ModelAttribute UserPo userPo){
         ModelAndView mv=null;
         userService.updateById(userPo);
         mv=new ModelAndView("redirect:/User/tolist.do");
@@ -93,7 +94,7 @@ public class User {
 
     @ResponseBody
     @RequestMapping(value="/YZ")
-    public Object YZ(String userName){
+    public Object YZ(@RequestParam(value = "userName",required = false)String userName){
         int YorN=userService.selectYZ(userName);
         Gson gson =new Gson();
         return gson.toJson(YorN);
