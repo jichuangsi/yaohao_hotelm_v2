@@ -8,6 +8,7 @@ import com.gx.vo.RoomVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -40,7 +41,9 @@ public class RoomSet {
 
 	//分页和模糊查询
 	@RequestMapping("/tolist")
-	public ModelAndView list(Integer currentPage, String txtname,Integer guestRoomLevelID){
+	public ModelAndView list(@RequestParam(value = "currentPage",required = false)Integer currentPage,
+							 @RequestParam(value = "txtname",required = false)String txtname,
+							 @RequestParam(value = "guestRoomLevelID",required = false)Integer guestRoomLevelID){
 		ModelAndView mv=null;
 		mv=new ModelAndView("/roomset/roomManagement");
 		Page<RoomVo> vo=new Page<RoomVo>();
@@ -97,7 +100,7 @@ public class RoomSet {
 	}
 	
 	@RequestMapping("/toupdate")
-	public ModelAndView toupdate(int id){
+	public ModelAndView toupdate( @RequestParam(value = "id",required = false)int id){
 		ModelAndView mv=null;
 		List<SupplierPo> slist=supplierService.listAll();
 		List<guestRoomLevelPo> glist=guestRoomLevelService.list();
@@ -129,7 +132,7 @@ public class RoomSet {
 	}
 	
 	@RequestMapping("/delete")
-	public ModelAndView delete(String id, HttpSession session){
+	public ModelAndView delete(@RequestParam(value = "id",required = false)String id, HttpSession session){
 		ModelAndView mv=null;
 		String[] FenGe=id.split(",");
 			for (int i = 0; i < FenGe.length; i++) {
@@ -151,7 +154,7 @@ public class RoomSet {
 	}
 
 	@RequestMapping(value="/detail")
-	public ModelAndView selectDetailByIds(Integer id){
+	public ModelAndView selectDetailByIds(@RequestParam(value = "id",required = false)Integer id){
 		RoomVo roomSet=roomSetService.selectDetailByIds(id);
 		ModelAndView mv=null;
 		mv=new ModelAndView("/roomset/check");

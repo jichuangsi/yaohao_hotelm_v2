@@ -8,6 +8,7 @@ import com.gx.service.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,7 +25,8 @@ public class Supplier {
 
     //分页和模糊查询
     @RequestMapping("/tolist")
-    public ModelAndView list(Integer currentPage, String txtname){
+    public ModelAndView list(@RequestParam(value = "currentPage",required = false)Integer currentPage,
+                             @RequestParam(value = "txtname",required = false)String txtname){
         ModelAndView mv=null;
         mv=new ModelAndView("/supplier/hotelmManagement");
         Page<SupplierPo> vo=new Page<SupplierPo>();
@@ -64,7 +66,7 @@ public class Supplier {
     }
 
     @RequestMapping("/toupdate")
-    public ModelAndView toupdate(int id){
+    public ModelAndView toupdate(@RequestParam(value = "id",required = false)int id){
         ModelAndView mv=null;
         SupplierPo supplierPo=supplierService.selectById(id);
         mv=new ModelAndView("/supplier/update");
@@ -81,7 +83,7 @@ public class Supplier {
     }
 
     @RequestMapping("/delete")
-    public ModelAndView delete(Integer id){
+    public ModelAndView delete(@RequestParam(value = "id",required = false)Integer id){
         ModelAndView mv=null;
             Integer precount=0;//predetermineService.selectPreSupplier(id);
             Integer stacount=0;//stayRegisterService.selectStaCount(id);
@@ -96,7 +98,7 @@ public class Supplier {
         return mv;
     }
     @RequestMapping("/enabled")
-    public ModelAndView enabled(Integer id){
+    public ModelAndView enabled(@RequestParam(value = "id",required = false)Integer id){
         ModelAndView mv=null;
             supplierService.enabledById(id);//删除供应商，禁用isenabled=1
         mv=new ModelAndView("redirect:/Supplier/hotelmManagement.do");
@@ -130,7 +132,8 @@ public class Supplier {
 
     //分页和模糊查询
     @RequestMapping("/toplist")
-    public ModelAndView plist(Integer currentPage, String txtname){
+    public ModelAndView plist(@RequestParam(value = "currentPage",required = false)Integer currentPage,
+                              @RequestParam(value = "txtname",required = false)String txtname){
         ModelAndView mv=null;
         mv=new ModelAndView("/supplier/list");
         Page<SupplierPo> vo=new Page<SupplierPo>();

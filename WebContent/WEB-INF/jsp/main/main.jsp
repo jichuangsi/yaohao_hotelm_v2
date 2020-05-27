@@ -826,7 +826,7 @@
                 var flag=confirm("确定退出吗?");
                 if (flag==true){
                     //window.location.href="http://localhost:8080/hotelm/Login/tomain.do";
-                    window.location.href="http://hotelm.sample.jichuangsi.com/hotelm/Login/tomain.do";
+                    window.location.href="${ctx}/Login/tomain.do";
                 }
 
             }

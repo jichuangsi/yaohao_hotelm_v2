@@ -9,6 +9,7 @@ import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,7 +22,8 @@ public class Platform {
     //分页和模糊查询,produces="text/jsp;charset=UTF-8"
 
     @RequestMapping(value = "/tolist",produces="text/jsp;charset=UTF-8")
-    public ModelAndView list(Integer currentPage, String txtname){
+    public ModelAndView list(@RequestParam(value = "currentPage",required = false)Integer currentPage,
+                             @RequestParam(value = "txtname",required = false) String txtname){
         ModelAndView mv=null;
        mv=new ModelAndView("/platform/merchantManagement");
         Page<PlatformPo> vo=new Page<PlatformPo>();
@@ -64,7 +66,7 @@ public class Platform {
     }
 
     @RequestMapping("/toupdate")
-    public ModelAndView toupdate(int id){
+    public ModelAndView toupdate(@RequestParam(value = "id",required = false)int id){
         ModelAndView mv=null;
         PlatformPo platformPo=platformService.selectById(id);
         mv=new ModelAndView("/platform/update");
@@ -81,7 +83,7 @@ public class Platform {
     }
 
     @RequestMapping("/delete")
-    public ModelAndView delete(Integer id){
+    public ModelAndView delete(@RequestParam(value = "id",required = false)Integer id){
         ModelAndView mv=null;
         Integer pre=0;//predetermineService.selectPrePlatform(id);
         Integer sta=0;//stayRegisterService.selectStaPlatform(id);
@@ -94,7 +96,7 @@ public class Platform {
         return mv;
     }
     @RequestMapping("/enabled")
-    public ModelAndView enabled(Integer id){
+    public ModelAndView enabled(@RequestParam(value = "id",required = false)Integer id){
         ModelAndView mv=null;
             platformService.enabledById(id);
         mv=new ModelAndView("redirect:/Platform/tolist.do");

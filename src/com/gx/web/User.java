@@ -7,6 +7,7 @@ import com.gx.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,7 +22,8 @@ public class User {
 
     @RequestMapping("/tolist")
 
-    public ModelAndView tolist(HttpServletRequest request, Integer currentPage, String name){
+    public ModelAndView tolist(HttpServletRequest request, @RequestParam(value = "currentPage",required = false)Integer currentPage,
+                               @RequestParam(value = "name",required = false)String name){
         ModelAndView mv=null;
         mv=new ModelAndView("/user/userManagement");
         Page<UserPo> vo=new Page<UserPo>();
@@ -50,7 +52,7 @@ public class User {
     }
 
     @RequestMapping("/toupdate")
-    public ModelAndView toupdate(int id){
+    public ModelAndView toupdate(@RequestParam(value = "id",required = false)int id){
         ModelAndView mv=null;
         mv=new ModelAndView("/user/update");
         UserPo list=userService.selectById(id);
@@ -77,7 +79,7 @@ public class User {
     }
 
     @RequestMapping("/delete")
-    public ModelAndView delete(String id){
+    public ModelAndView delete(@RequestParam(value = "id",required = false)String id){
         ModelAndView mv=null;
         String[] FenGe=id.split(",");
         for (int i = 0; i < FenGe.length; i++) {

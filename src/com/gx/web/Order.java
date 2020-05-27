@@ -63,7 +63,9 @@ public class Order {
 
     //自有已订单
     @RequestMapping("/myorder")
-    public ModelAndView myorder(String orderNumber, String passengerId, Integer currentPage) {
+    public ModelAndView myorder(@RequestParam(value = "orderNumber",required = false)String orderNumber,
+                                @RequestParam(value = "passengerId",required = false)String passengerId,
+                                @RequestParam(value = "currentPage",required = false)Integer currentPage) {
         ModelAndView mv = null;
         mv = new ModelAndView("/order/accommodation");
         if (currentPage == null) {
@@ -97,7 +99,10 @@ public class Order {
     //分页订单
     @ResponseBody
     @RequestMapping("/pageorder")
-    public Object pageorder(String orderNumber, String passengerId, Integer currentPage, Integer status) {
+    public Object pageorder(@RequestParam(value = "orderNumber",required = false)String orderNumber,
+                            @RequestParam(value = "passengerId",required = false)String passengerId,
+                            @RequestParam(value = "currentPage",required = false)Integer currentPage,
+                            @RequestParam(value = "status",required = false)Integer status) {
         if (currentPage == null) {
             currentPage = 1;
         } else if (currentPage == 0) {
@@ -124,7 +129,10 @@ public class Order {
 
 
     @RequestMapping("/pageorders")
-    public ModelAndView pageorders(String orderNumber, String passengerId, Integer currentPage, Integer status) {
+    public ModelAndView pageorders(@RequestParam(value = "orderNumber",required = false)String orderNumber,
+                                   @RequestParam(value = "passengerId",required = false)String passengerId,
+                                   @RequestParam(value = "currentPage",required = false)Integer currentPage,
+                                   @RequestParam(value = "status",required = false)Integer status) {
         ModelAndView mv = null;
         mv = new ModelAndView("/order/accommodation");
         if (currentPage == null) {
@@ -164,7 +172,9 @@ public class Order {
 
     //已入住
     @RequestMapping("/checkinorder")
-    public ModelAndView checkinorder(String orderNumber, String passengerId, Integer currentPage) {
+    public ModelAndView checkinorder(@RequestParam(value = "orderNumber",required = false)String orderNumber,
+                                     @RequestParam(value = "passengerId",required = false)String passengerId,
+                                     @RequestParam(value = "currentPage",required = false)Integer currentPage) {
         ModelAndView mv = null;
         mv = new ModelAndView("/order/accommodationin");
         if (currentPage == null) {
@@ -181,7 +191,9 @@ public class Order {
 
     //已退房
     @RequestMapping("/checkoutorder")
-    public ModelAndView checkoutorder(String orderNumber, String passengerId, Integer currentPage) {
+    public ModelAndView checkoutorder(@RequestParam(value = "orderNumber",required = false)String orderNumber,
+                                      @RequestParam(value = "passengerId",required = false)String passengerId,
+                                      @RequestParam(value = "currentPage",required = false)Integer currentPage) {
         ModelAndView mv = null;
         mv = new ModelAndView("/order/accommodationout");
         if (currentPage == null) {
@@ -198,7 +210,9 @@ public class Order {
 
     //已到账
     @RequestMapping("/myaccount")
-    public ModelAndView myaccount(String orderNumber, String passengerId, Integer currentPage) {
+    public ModelAndView myaccount(@RequestParam(value = "orderNumber",required = false)String orderNumber,
+                                  @RequestParam(value = "passengerId",required = false)String passengerId,
+                                  @RequestParam(value = "currentPage",required = false)Integer currentPage) {
         ModelAndView mv = null;
         mv = new ModelAndView("/order/accommodationaccount");
         if (currentPage == null) {
@@ -215,7 +229,9 @@ public class Order {
 
     //订单明细
     @RequestMapping("/myorderStatistics")
-    public ModelAndView myorderStatistics(String orderNumber, Integer passengerId, Integer currentPage) {
+    public ModelAndView myorderStatistics(@RequestParam(value = "orderNumber",required = false)String orderNumber,
+                                          @RequestParam(value = "passengerId",required = false)Integer passengerId,
+                                          @RequestParam(value = "currentPage",required = false)Integer currentPage) {
         ModelAndView mv = null;
         mv = new ModelAndView("/order/finance1");
        /* if (currentPage==null) {
@@ -234,7 +250,8 @@ public class Order {
 
     //财务报表
     @RequestMapping("/myfinance")
-    public ModelAndView myfinance(String time, Integer currentPage) throws Exception {
+    public ModelAndView myfinance(@RequestParam(value = "time",required = false)String time,
+                                  @RequestParam(value = "currentPage",required = false)Integer currentPage) throws Exception {
         ModelAndView mv = null;
         mv = new ModelAndView("/order/finance2");
         if (currentPage == null) {
@@ -350,7 +367,8 @@ public class Order {
 
     //入住情况
     @RequestMapping("occupancy")
-    public ModelAndView getTimeSelectRoom(@RequestParam(value = "time",required = false) String time,@RequestParam(value = "currentPage",required = false) Integer currentPage) {
+    public ModelAndView getTimeSelectRoom(@RequestParam(value = "time",required = false) String time,
+                                          @RequestParam(value = "currentPage",required = false) Integer currentPage) {
         ModelAndView mv = null;
         mv = new ModelAndView("/order/accommodationfinance");
         if (currentPage == null) {
@@ -687,7 +705,8 @@ public class Order {
 
     //新增消费订单
     @RequestMapping("toaddfinance")
-    public ModelAndView toaddfinance(Integer id, String time) {
+    public ModelAndView toaddfinance(@RequestParam(value = "id",required = false)Integer id,
+                                     @RequestParam(value = "time",required = false)String time) {
         ModelAndView mv = null;
         mv = new ModelAndView("/order/addfinance");
         mv.addObject("id", id);
@@ -778,7 +797,8 @@ public class Order {
     }
 
     @RequestMapping("bookinglist")
-    public ModelAndView bookinglist(String name, Integer currentPage) {
+    public ModelAndView bookinglist(@RequestParam(value = "name",required = false)String name,
+                                    @RequestParam(value = "currentPage",required = false) Integer currentPage) {
         ModelAndView mv = null;
         mv = new ModelAndView("/order/booking");
         if (currentPage == null) {
@@ -797,7 +817,8 @@ public class Order {
 
     //日程消费列表
     @RequestMapping("todaily")
-    public ModelAndView todaily(String time, Integer currentPage) {
+    public ModelAndView todaily( @RequestParam(value = "time",required = false)String time,
+                                 @RequestParam(value = "currentPage",required = false)Integer currentPage) {
         ModelAndView mv = null;
         mv = new ModelAndView("/order/addDaily");
         if (currentPage == null) {
@@ -937,7 +958,8 @@ public class Order {
 
     //查询问题
     @RequestMapping("question")
-    public ModelAndView question(String name, Integer currentPage) {
+    public ModelAndView question(@RequestParam(value = "name",required = false)String name,
+                                 @RequestParam(value = "currentPage",required = false)Integer currentPage) {
         ModelAndView mv = null;
         mv = new ModelAndView("/order/questions");
         if (currentPage == null) {
@@ -987,7 +1009,8 @@ public class Order {
     }
 
     @RequestMapping("anserByQid")
-    public ModelAndView anserByQid(Integer qid, Integer currentPage) {
+    public ModelAndView anserByQid( @RequestParam(value = "qid",required = false)Integer qid,
+                                    @RequestParam(value = "currentPage",required = false)Integer currentPage) {
         ModelAndView mv = null;
         mv = new ModelAndView("/order/questionsanser");
         if (currentPage == null) {
@@ -1142,7 +1165,7 @@ public class Order {
     //新增/修改问题回答
 
     @RequestMapping("getAnser")
-    public ModelAndView getAnser(Integer id) {
+    public ModelAndView getAnser( @RequestParam(value = "id",required = false)Integer id) {
         ModelAndView mv = null;
         mv = new ModelAndView("/order/uedites");
         AnserPo po = anserService.questionById(id);
@@ -1196,7 +1219,7 @@ public class Order {
     }
 
     @RequestMapping("uedit")
-    public ModelAndView uedit(Integer qId) {
+    public ModelAndView uedit(@RequestParam(value = "qId",required = false)Integer qId) {
         ModelAndView mv = null;
         mv = new ModelAndView("/order/uedit");
         mv.addObject("qId", qId);
@@ -1392,7 +1415,8 @@ public class Order {
 
 
     @RequestMapping("toupdate")
-    public ModelAndView toupdate(Integer id, Integer status) {
+    public ModelAndView toupdate(@RequestParam(value = "id",required = false)Integer id,
+                                 @RequestParam(value = "status",required = false)Integer status) {
         ModelAndView mv = null;
         mv = new ModelAndView("/order/updateOrder");
         OrderDetailsVo vo = orderService.selectById(id);
@@ -1909,7 +1933,12 @@ public class Order {
 
 
     @RequestMapping("/financetwo")
-    public ModelAndView financetwo(Integer currentPage, String orderNumber, String roomName,  String reserName, String passName,String time) {
+    public ModelAndView financetwo(@RequestParam(value = "currentPage",required = false)Integer currentPage,
+                                   @RequestParam(value = "orderNumber",required = false)String orderNumber,
+                                   @RequestParam(value = "roomName",required = false)String roomName,
+                                   @RequestParam(value = "reserName",required = false)String reserName,
+                                   @RequestParam(value = "passName",required = false)String passName,
+                                   @RequestParam(value = "time",required = false)String time) {
         ModelAndView mv = null;
         mv = new ModelAndView("/order/finance1");
         Timestamp timestamp = null;
@@ -1974,7 +2003,8 @@ public class Order {
     }
 
     @RequestMapping("/orderByplatform")
-    public ModelAndView orderByplatform(Integer platformId,Integer currentPage){
+    public ModelAndView orderByplatform( @RequestParam(value = "platformId",required = false)Integer platformId,
+                                         @RequestParam(value = "currentPage",required = false)Integer currentPage){
         ModelAndView mv = null;
         mv = new ModelAndView("/platform/platformorder");
         if (currentPage == null) {

@@ -12,6 +12,7 @@ import com.gx.vo.WholeOrderRoomVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -43,7 +44,8 @@ public class WholeHotel {
     private PassengerService passengerService;
 
     @RequestMapping("/homeType")
-    public ModelAndView homeType(String hometype,Integer currentPage) {
+    public ModelAndView homeType(@RequestParam(value = "hometype",required = false)String hometype,
+                                 @RequestParam(value = "currentPage",required = false)Integer currentPage) {
         ModelAndView mv = null;
         mv = new ModelAndView("/whole/hometypeManagement");
         if (currentPage==null) {
@@ -85,8 +87,11 @@ public class WholeHotel {
         Gson gson=new Gson();
         return gson.toJson(count);
     }
+
     @RequestMapping("/roomByType")
-    public ModelAndView roomByType(Integer id,String roomNumber,Integer currentPage){
+    public ModelAndView roomByType(@RequestParam(value = "id",required = false)Integer id,
+                                   @RequestParam(value = "roomNumber",required = false)String roomNumber,
+                                   @RequestParam(value = "currentPage",required = false)Integer currentPage){
         ModelAndView mv = null;
         mv = new ModelAndView("/whole/room");
         if (currentPage==null) {
