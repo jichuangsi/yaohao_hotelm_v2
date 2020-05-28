@@ -623,7 +623,7 @@
         /*WHERE `type`=1*/
         WHERE 1=1
         <if test="platform!='' and platform!=null">
-            AND p.`name` like CONCAT('%',#{platform,jdbcType=VARCHAR},'%')
+            AND p.`id` =#{platform,jdbcType=INTEGER}
         </if>
         <if test="order!='' and order!=null">
             AND o.`orderNumber` like CONCAT('%',#{order,jdbcType=VARCHAR},'%')
@@ -649,7 +649,7 @@
         /*WHERE `type`=1*/
         WHERE 1=1
         <if test="platform!='' and platform!=null">
-            AND p.`name` like CONCAT('%',#{platform,jdbcType=VARCHAR},'%')
+            AND p.`id` =#{platform,jdbcType=INTEGER}
         </if>
         <if test="order!='' and order!=null">
             AND o.`orderNumber` like CONCAT('%',#{order,jdbcType=VARCHAR},'%')
@@ -677,7 +677,7 @@
         /*WHERE `type`=1*/
         WHERE 1=1
         <if test="platform!='' and platform!=null">
-            AND p.`name` like CONCAT('%',#{platform,jdbcType=VARCHAR},'%')
+            AND p.`id` =#{platform,jdbcType=INTEGER}
         </if>
         <if test="order!='' and order!=null">
             AND o.`orderNumber` like CONCAT('%',#{order,jdbcType=VARCHAR},'%')
@@ -703,7 +703,7 @@
         INNER JOIN `guestroomlevel` gu ON gu.id=o.`hometype`
         WHERE /*`type`=1 AND*/ o.status=5
         <if test="platform!='' and platform!=null">
-            AND p.`name` like CONCAT('%',#{platform,jdbcType=VARCHAR},'%')
+            AND p.`id` =#{platform,jdbcType=INTEGER}
         </if>
         <if test="order!='' and order!=null">
             AND o.`orderNumber` like CONCAT('%',#{order,jdbcType=VARCHAR},'%')
@@ -730,7 +730,7 @@
         /*WHERE `type`=1*/
         WHERE /*`type`=1 AND*/ o.status=6
         <if test="platform!='' and platform!=null">
-            AND p.`name` like CONCAT('%',#{platform,jdbcType=VARCHAR},'%')
+            AND p.`id` =#{platform,jdbcType=INTEGER}
         </if>
         <if test="order!='' and order!=null">
             AND o.`orderNumber` like CONCAT('%',#{order,jdbcType=VARCHAR},'%')
@@ -755,7 +755,7 @@
         INNER JOIN `guestroomlevel` gu ON gu.id=o.`hometype`
         WHERE /*`type`=1 AND*/ o.status=6
         <if test="platform!='' and platform!=null">
-            AND p.`name` like CONCAT('%',#{platform,jdbcType=VARCHAR},'%')
+            AND p.`id` =#{platform,jdbcType=INTEGER}
         </if>
         <if test="order!='' and order!=null">
             AND o.`orderNumber` like CONCAT('%',#{order,jdbcType=VARCHAR},'%')
@@ -780,7 +780,7 @@
         /*WHERE `type`=1*/
         WHERE /*`type`=1 AND*/ o.isdao=2
         <if test="platform!='' and platform!=null">
-            AND p.`name` like CONCAT('%',#{platform,jdbcType=VARCHAR},'%')
+            AND p.`id` =#{platform,jdbcType=INTEGER}
         </if>
         <if test="order!='' and order!=null">
             AND o.`orderNumber` like CONCAT('%',#{order,jdbcType=VARCHAR},'%')
@@ -804,7 +804,7 @@
         INNER JOIN `guestroomlevel` gu ON gu.id=o.`hometype`
         WHERE /*`type`=1 AND*/ o.isdao=2
         <if test="platform!='' and platform!=null">
-            AND p.`name` like CONCAT('%',#{platform,jdbcType=VARCHAR},'%')
+            AND p.`id` =#{platform,jdbcType=INTEGER}
         </if>
         <if test="order!='' and order!=null">
             AND o.`orderNumber` like CONCAT('%',#{order,jdbcType=VARCHAR},'%')
@@ -829,7 +829,7 @@
         /*WHERE `type`=1*/
         WHERE 1=1
         <if test="platform!='' and platform!=null">
-            AND p.`name` like CONCAT('%',#{platform,jdbcType=VARCHAR},'%')
+            AND p.`id` =#{platform,jdbcType=INTEGER}
         </if>
         <if test="order!='' and order!=null">
             AND o.`orderNumber` like CONCAT('%',#{order,jdbcType=VARCHAR},'%')
@@ -854,7 +854,7 @@
         INNER JOIN `guestroomlevel` gu ON gu.id=o.`hometype`
         WHERE /*`type`=1 AND */o.status=1
         <if test="platform!='' and platform!=null">
-            AND p.`name` like CONCAT('%',#{platform,jdbcType=VARCHAR},'%')
+            AND p.`id` =#{platform,jdbcType=INTEGER}
         </if>
         <if test="order!='' and order!=null">
             AND o.`orderNumber` like CONCAT('%',#{order,jdbcType=VARCHAR},'%')
@@ -880,7 +880,7 @@
         /*WHERE `type`=1*/
         WHERE 1=1
         <if test="platform!='' and platform!=null">
-            AND p.`name` like CONCAT('%',#{platform,jdbcType=VARCHAR},'%')
+            AND p.`id` =#{platform,jdbcType=INTEGER}
         </if>
         <if test="order!='' and order!=null">
             AND o.`orderNumber` like CONCAT('%',#{order,jdbcType=VARCHAR},'%')
@@ -905,7 +905,7 @@
         INNER JOIN `guestroomlevel` gu ON gu.id=o.`hometype`
         WHERE /*`type`=1 AND */o.status=3
         <if test="platform!='' and platform!=null">
-            AND p.`name` like CONCAT('%',#{platform,jdbcType=VARCHAR},'%')
+            AND p.`id` =#{platform,jdbcType=INTEGER}
         </if>
         <if test="order!='' and order!=null">
             AND o.`orderNumber` like CONCAT('%',#{order,jdbcType=VARCHAR},'%')

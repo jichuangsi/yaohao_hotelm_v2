@@ -55,8 +55,19 @@
     <div class="layui-row"><%--action="${ctx}/Hotelm/allorder.do"--%>
         <form class="layui-form layui-col-md12">
             <div class="layui-input-inline">
-                <input type="text" name="platform" id="platform" placeholder="平台" autocomplete="off"
-                       class="layui-input" style="width: 200px;" value="${platform}">
+                <%--<input type="text" name="platform" id="platform" placeholder="平台" autocomplete="off"
+                       class="layui-input" style="width: 200px;" value="${platform}">--%>
+                    <select name="platform"  id="platform">
+                        <option value="">请选择平台</option>
+                    <c:forEach items="${plist}" var="list">
+                        <option value="${list.id}">${list.name}</option>
+                    </c:forEach>
+                       <%-- <option value="2" <c:if test="${status==2}"> selected</c:if> lang>已确认</option>
+                        <option value="3" <c:if test="${status==3}"> selected</c:if> lang>已取消</option>
+                        <option value="5" <c:if test="${status==5}"> selected</c:if> lang>已入住</option>
+                        <option value="6" <c:if test="${status==6}"> selected</c:if> lang>已退房</option>
+                        <option value="0" <c:if test="${status==0}"> selected</c:if> lang>已到账</option>--%>
+                    </select>
             </div>
             <div class="layui-input-inline">
                 <input type="text" name="order" id="order" placeholder="订单号" autocomplete="off"

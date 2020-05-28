@@ -101,18 +101,18 @@ public interface OrderService {
 
     /////////////////改///////////////////////////////////////////////////////////////////
     //已确认
-    public Page<OrderDetailsVo> allConfirm(String platform,String order,String reserName,String passName, Page<OrderDetailsVo> vo);
+    public Page<OrderDetailsVo> allConfirm(Integer platform,String order,String reserName,String passName, Page<OrderDetailsVo> vo);
     //已入住
-    public Page<OrderDetailsVo> checkinallorder(String platform,String order,String reserName,String passName, Page<OrderDetailsVo> vo);
+    public Page<OrderDetailsVo> checkinallorder(Integer platform,String order,String reserName,String passName, Page<OrderDetailsVo> vo);
     //已退房
-    public Page<OrderDetailsVo> checkoutallorder(String platform,String order,String reserName,String passName, Page<OrderDetailsVo> vo);
+    public Page<OrderDetailsVo> checkoutallorder(Integer platform,String order,String reserName,String passName, Page<OrderDetailsVo> vo);
     //已到款
-    public Page<OrderDetailsVo> myaccountall(String platform,String order,String reserName,String passName, Page<OrderDetailsVo> vo);
+    public Page<OrderDetailsVo> myaccountall(Integer platform,String order,String reserName,String passName, Page<OrderDetailsVo> vo);
     /*未确认*/
-    public Page<OrderDetailsVo> listUnconfirmedall(String platform,String order,String reserName,String passName,
+    public Page<OrderDetailsVo> listUnconfirmedall(Integer platform,String order,String reserName,String passName,
                                                 Page<OrderDetailsVo> vo);
     /*已取消*/
-    public Page<OrderDetailsVo> listCancelledall(String platform,String order,String reserName,String passName,
+    public Page<OrderDetailsVo> listCancelledall(Integer platform,String order,String reserName,String passName,
                                               Page<OrderDetailsVo> vo);
 
     public Integer updateRegister(Integer inpasssId,Integer id);

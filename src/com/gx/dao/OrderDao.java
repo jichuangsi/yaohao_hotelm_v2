@@ -161,52 +161,52 @@ public interface OrderDao {
 
     ///////////////////////////改=====================//////////////////////////////////////////////////////
     //条件查询String platform,String order,String reserName,String passName
-    public List<OrderDetailsVo> allConfirm(@Param("platform") String platform, @Param("order") String order,
+    public List<OrderDetailsVo> allConfirm(@Param("platform") Integer platform, @Param("order") String order,
                                            @Param("reserName") String reserName, @Param("passName") String passName,
                                            @Param("start") int start, @Param("size") int size);
 
 
-    public Integer countAllConfirm(@Param("platform") String platform, @Param("order") String order,
+    public Integer countAllConfirm(@Param("platform") Integer platform, @Param("order") String order,
                                    @Param("reserName") String reserName, @Param("passName") String passName);
 
     //已入住
-    public List<OrderDetailsVo> checkinallorder(@Param("platform") String platform, @Param("order") String order,
+    public List<OrderDetailsVo> checkinallorder(@Param("platform") Integer platform, @Param("order") String order,
                                                 @Param("reserName") String reserName, @Param("passName") String passName,
                                                 @Param("start") int start, @Param("size") int size);
 
-    public Integer countcheckinallorder(@Param("platform") String platform, @Param("order") String order,
+    public Integer countcheckinallorder(@Param("platform") Integer platform, @Param("order") String order,
                                         @Param("reserName") String reserName, @Param("passName") String passName);
 
     //已退房
-    public List<OrderDetailsVo> checkoutallorder(@Param("platform") String platform, @Param("order") String order,
+    public List<OrderDetailsVo> checkoutallorder(@Param("platform") Integer platform, @Param("order") String order,
                                                  @Param("reserName") String reserName, @Param("passName") String passName,
                                                  @Param("start") int start, @Param("size") int size);
 
-    public Integer countcheckoutallorder(@Param("platform") String platform, @Param("order") String order,
+    public Integer countcheckoutallorder(@Param("platform") Integer platform, @Param("order") String order,
                                          @Param("reserName") String reserName, @Param("passName") String passName);
 
     //已到款
-    public List<OrderDetailsVo> myaccountall(@Param("platform") String platform, @Param("order") String order,
+    public List<OrderDetailsVo> myaccountall(@Param("platform") Integer platform, @Param("order") String order,
                                              @Param("reserName") String reserName, @Param("passName") String passName,
                                              @Param("start") int start, @Param("size") int size);
 
-    public Integer countmyaccountall(@Param("platform") String platform, @Param("order") String order,
+    public Integer countmyaccountall(@Param("platform") Integer platform, @Param("order") String order,
                                      @Param("reserName") String reserName, @Param("passName") String passName);
 
     /*未确认*/
-    public List<OrderDetailsVo> listUnconfirmedall(@Param("platform") String platform, @Param("order") String order,
+    public List<OrderDetailsVo> listUnconfirmedall(@Param("platform") Integer platform, @Param("order") String order,
                                                    @Param("reserName") String reserName, @Param("passName") String passName,
                                                    @Param("start") int start, @Param("size") int size);
 
-    public Integer countListUnconfirmedall(@Param("platform") String platform, @Param("order") String order,
+    public Integer countListUnconfirmedall(@Param("platform") Integer platform, @Param("order") String order,
                                            @Param("reserName") String reserName, @Param("passName") String passName);
 
     /*已取消*/
-    public List<OrderDetailsVo> listCancelledall(@Param("platform") String platform, @Param("order") String order,
+    public List<OrderDetailsVo> listCancelledall(@Param("platform") Integer platform, @Param("order") String order,
                                                  @Param("reserName") String reserName, @Param("passName") String passName,
                                                  @Param("start") int start, @Param("size") int size);
 
-    public Integer countListCancelledall(@Param("platform") String platform, @Param("order") String order,
+    public Integer countListCancelledall(@Param("platform") Integer platform, @Param("order") String order,
                                          @Param("reserName") String reserName, @Param("passName") String passName);
 
     public Integer updateRegister(@Param("inpasssId") Integer inpasssId, @Param("id") Integer id);

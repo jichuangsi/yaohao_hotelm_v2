@@ -1842,7 +1842,7 @@ public class Order {
     //改
 //全部订单
     @RequestMapping("/allorder")
-    public ModelAndView allorder(@RequestParam(value = "platform",required = false) String platform,
+    public ModelAndView allorder(@RequestParam(value = "platform",required = false) Integer platform,
                                  @RequestParam(value = "order",required = false) String order,
                                  @RequestParam(value = "reserName",required = false) String reserName,
                                  @RequestParam(value = "passName",required = false) String passName,
@@ -1900,11 +1900,13 @@ public class Order {
             vo = this.orderService.listCancelledall(platform, order, reserName, passName, vo);
             mv.addObject("list", vo);
         }
+        List<PlatformPo> plist=platformService.listAll();
         mv.addObject("status", status);
         mv.addObject("platform", platform);
         mv.addObject("order", order);
         mv.addObject("reserName", reserName);
         mv.addObject("passName", passName);
+        mv.addObject("plist", plist);
         return mv;
     }
 

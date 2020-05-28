@@ -339,7 +339,7 @@ public class OrderServiceImpl implements OrderService {
     //////////////////////////改////////////////////////////////////////////////////////////////
 
     @Override
-    public Page<OrderDetailsVo> allConfirm(String platform, String order, String reserName, String passName, Page<OrderDetailsVo> vo) {
+    public Page<OrderDetailsVo> allConfirm(Integer platform, String order, String reserName, String passName, Page<OrderDetailsVo> vo) {
         int start=0;
         if (vo.getCurrentPage()>1) {
             start=(vo.getCurrentPage()-1)*vo.getPageSize();
@@ -353,7 +353,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Page<OrderDetailsVo> checkinallorder(String platform, String order, String reserName, String passName, Page<OrderDetailsVo> vo) {
+    public Page<OrderDetailsVo> checkinallorder(Integer platform, String order, String reserName, String passName, Page<OrderDetailsVo> vo) {
         int start=0;
         if (vo.getCurrentPage()>1) {
             start=(vo.getCurrentPage()-1)*vo.getPageSize();
@@ -367,7 +367,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Page<OrderDetailsVo> checkoutallorder(String platform, String order, String reserName, String passName, Page<OrderDetailsVo> vo) {
+    public Page<OrderDetailsVo> checkoutallorder(Integer platform, String order, String reserName, String passName, Page<OrderDetailsVo> vo) {
         int start=0;
         if (vo.getCurrentPage()>1) {
             start=(vo.getCurrentPage()-1)*vo.getPageSize();
@@ -381,7 +381,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Page<OrderDetailsVo> myaccountall(String platform, String order, String reserName, String passName, Page<OrderDetailsVo> vo) {
+    public Page<OrderDetailsVo> myaccountall(Integer platform, String order, String reserName, String passName, Page<OrderDetailsVo> vo) {
         int start=0;
         if (vo.getCurrentPage()>1) {
             start=(vo.getCurrentPage()-1)*vo.getPageSize();
@@ -395,7 +395,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Page<OrderDetailsVo> listUnconfirmedall(String platform, String order, String reserName, String passName, Page<OrderDetailsVo> vo) {
+    public Page<OrderDetailsVo> listUnconfirmedall(Integer platform, String order, String reserName, String passName, Page<OrderDetailsVo> vo) {
         int start=0;
         if (vo.getCurrentPage()>1) {
             start=(vo.getCurrentPage()-1)*vo.getPageSize();
@@ -409,7 +409,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Page<OrderDetailsVo> listCancelledall(String platform, String order, String reserName, String passName, Page<OrderDetailsVo> vo) {
+    public Page<OrderDetailsVo> listCancelledall(Integer platform, String order, String reserName, String passName, Page<OrderDetailsVo> vo) {
         int start=0;
         if (vo.getCurrentPage()>1) {
             start=(vo.getCurrentPage()-1)*vo.getPageSize();
