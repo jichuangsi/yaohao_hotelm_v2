@@ -58,7 +58,7 @@
 			<div class="layui-row">
 				<form class="layui-form layui-col-md12">
 					<div class="layui-input-inline">
-						<input type="text" name="name" placeholder="操作员关键字" autocomplete="off" class="layui-input" style="width: 200px;">
+						<input type="text" name="txtname" id="txtname" placeholder="操作员关键字" autocomplete="off" class="layui-input" style="width: 200px;">
 					</div>
 			
 					<div class="layui-btn" lay-submit="" lay-filter="search"><i class="layui-icon">&#xe615;</i></div>
@@ -254,7 +254,10 @@
                     })
                 }
             });
-
+            form.on('submit(search)', function () {
+                var txtname = document.getElementById("txtname").value;
+                location.href = "${ctx}/User/tolist.do?name=" + txtname ;
+            });
 		})
         function name(){
             var order=document.getElementById("userName").value;

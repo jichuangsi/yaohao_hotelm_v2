@@ -97,10 +97,20 @@
 				<tr>
 					<th>${item.platformName}</th>
 					<th>${item.orderNumber}</th>
-					<th>${item.roomNumber}</th>
+					<c:if test="${item.type==2}">
+						<th>${item.guestRoomLevel}</th>
+					</c:if>
+					<c:if test="${item.type!=2}">
+						<th>${item.roomNumber}</th>
+					</c:if>
 					<th>${item.orderTime}</th>
 					<th>${item.checkinDay}</th>
+					<c:if test="${item.type==2}">
+						<th></th>
+					</c:if>
+					<c:if test="${item.type!=2}">
 					<th>${item.referencePrice}</th>
+					</c:if>
 					<%--<th></th>
 					<th></th>
 					<th></th>

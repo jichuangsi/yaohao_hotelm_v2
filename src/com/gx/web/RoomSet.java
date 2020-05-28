@@ -53,10 +53,10 @@ public class RoomSet {
 		}else if (currentPage==0) {
 			currentPage=1;
 		}
-		/*if(txtname==null)
+		if(txtname=="")
 		{
-			txtname="";
-		}*/
+			txtname=null;
+		}
 		vo.setCurrentPage(currentPage);
 
         vo=this.roomSetService.haveRoom(txtname,guestRoomLevelID, vo);

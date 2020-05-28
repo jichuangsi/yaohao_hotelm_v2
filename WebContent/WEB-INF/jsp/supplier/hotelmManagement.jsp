@@ -55,7 +55,7 @@
 			<div class="layui-row">
 				<form class="layui-form layui-col-md12">
 					<div class="layui-input-inline">
-						<input type="text" name="orderNumber" placeholder="酒店关键字" autocomplete="off" class="layui-input" style="width: 200px;">
+						<input type="text" name="txtname" id="txtname" placeholder="酒店关键字" autocomplete="off" class="layui-input" style="width: 200px;">
 					</div>
 			
 					<div class="layui-btn" lay-submit="" lay-filter="search"><i class="layui-icon">&#xe615;</i></div>
@@ -142,7 +142,8 @@
             pageCount:${list.totalPage},
             current:${list.currentPage},
             backFn:function(p){
-                location.href="${ctx}/Supplier/tolist.do?currentPage="+p;
+                var txtname = document.getElementById("txtname").value;
+                location.href="${ctx}/Supplier/tolist.do?currentPage="+p+"&txtname="+txtname;
             }
         });
 		function add() {
@@ -210,7 +211,10 @@
             }
             });
 
-
+            form.on('submit(search)', function () {
+                var txtname = document.getElementById("txtname").value;
+                location.href = "${ctx}/Supplier/tolist.do?txtname=" + txtname ;
+            });
 
 		})
         function name(){

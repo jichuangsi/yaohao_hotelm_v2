@@ -924,12 +924,13 @@
 
     <select id="selectFinanceTwo" resultType="com.gx.vo.OrderDetailsVo">
         SELECT o.*,p.`name` AS reserationName,p.`phoneNumber` AS mobile,r.`roomNumber` ,pl.`name`AS platformName
-        ,r.`referencePrice` AS referencePrice
+        ,r.`referencePrice` AS referencePrice,g.`guestRoomLevel` AS guestRoomLevel
         FROM `order` o INNER JOIN `passenger` p ON o.`inpasssId`=p.id
         INNER JOIN `room` r ON o.`roomId`=r.id
         INNER JOIN `platform` pl ON pl.id=o.`platformId`
         INNER JOIN `passenger` pa ON o.`passengerId`=pa.`id`
         INNER JOIN `passenger` pas ON o.`inpasssId`=pas.`id`
+        INNER JOIN `guestroomlevel` g ON g.id=o.`hometype`
         WHERE o.`status`=6
         <if test="orderNumber!='' and orderNumber!=null">
             AND o.`orderNumber` like CONCAT('%',#{orderNumber,jdbcType=VARCHAR},'%')

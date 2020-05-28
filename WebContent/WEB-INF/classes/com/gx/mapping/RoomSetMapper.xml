@@ -85,10 +85,10 @@
      INNER JOIN `supplier` su ON r.`supplierID`=su.id
     WHERE 1=1
     <if test="roomNumber!=null and roomNumber!=''">
-        r.roomNumber LIKE CONCAT('%',#{roomNumber,jdbcType=VARCHAR},'%')
+      AND  r.roomNumber LIKE CONCAT('%',#{roomNumber,jdbcType=VARCHAR},'%')
     </if>
        <if test="guestRoomLevelID!=null">
-           guestRoomLevelID LIKE CONCAT('%',#{guestRoomLevelID,jdbcType=VARCHAR},'%')
+           AND  guestRoomLevelID LIKE CONCAT('%',#{guestRoomLevelID,jdbcType=INTEGER},'%')
        </if>
     AND su.isenabled=0 AND su.have=1
        AND g.status=1
@@ -103,10 +103,10 @@
      INNER JOIN `supplier` su ON r.`supplierID`=su.id
       WHERE 1=1
       <if test="roomNumber!=null">
-          r.roomNumber LIKE CONCAT('%',#{roomNumber,jdbcType=VARCHAR},'%')
+          AND  r.roomNumber LIKE CONCAT('%',#{roomNumber,jdbcType=VARCHAR},'%')
       </if>
       <if test="guestRoomLevelID!=null">
-          guestRoomLevelID LIKE CONCAT('%',#{guestRoomLevelID,jdbcType=INTEGER},'%')
+          AND  guestRoomLevelID LIKE CONCAT('%',#{guestRoomLevelID,jdbcType=INTEGER},'%')
       </if>
      AND su.isenabled=0 AND su.have=1
       AND g.status=1
