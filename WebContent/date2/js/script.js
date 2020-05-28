@@ -1,5 +1,15 @@
 $(document).ready(function(){
+    function getRootPath() {
+        var curWwwPath = window.document.location.href;
+        var pathName = window.document.location.pathname;
+        var pos = curWwwPath.indexOf(pathName);
+        var localhostPath = curWwwPath.substring(0, pos);
+        //获取带"/"的项目名，如：/zdss-web
 
+        var projectName = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
+        return projectName;
+
+    }
 	var date = new Date();
 	var d = date.getDate();
 	var m = date.getMonth();
@@ -64,7 +74,7 @@ $(document).ready(function(){
                 $.ajax({
                     cache:false,                                       //是否使用缓存提交 如果为TRUE 会调用浏览器的缓存 而不会提交
                     type: "post",
-                    url: '/hotelm/WholeHotel/monthRoom.do',
+                    url: getRootPath()+'/WholeHotel/monthRoom.do',
                     dataType: "json",//地址 type 带参数"id="+id+"&timeOne="+from+"&timeTwo="+to,
                     data:"time="+time+"&typeid="+id,
                     async:false,                                          // 是否 异步 提交

@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import com.gx.service.PlatformService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -1237,7 +1238,7 @@ public class Order {
 
     @ResponseBody
     @RequestMapping(value = "uploadImg", method = RequestMethod.POST)
-    public Object uploadImg(@RequestParam(value = "upload", required = false) MultipartFile upload) throws IOException {
+    public Object uploadImg(@RequestParam(value = "upload", required = false) MultipartFile upload, HttpServletRequest request) throws IOException {
         Map<String, Object> path = new HashMap<String, Object>();
         /*  for (MultipartFile img : upload) {*/
         if (!upload.isEmpty()) {// 判断上传的文件是否为空
@@ -1252,7 +1253,7 @@ public class Order {
                 if (imgs().contains(type.toLowerCase())) {
                     double fileSize = (double) upload.getSize() / 1024 / 1024;//MB
                     if (fileSize <= Double.valueOf(5)) {//判断资源是否小于5mb
-                        String pathUrl = System.getProperty("bookdir");
+                        String pathUrl = System.getProperty("bookdirs");
                         String url = pathUrl + "images";
                         //要上传的路径（包括存储的绝对路径和文件名.后缀）
                         File file1 = new File(url + "\\" + newName);
