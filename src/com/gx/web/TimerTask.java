@@ -21,7 +21,7 @@ public class TimerTask {
     private AnserService anserService;
 
 
-    //定时清理多余图片或者视频0 */1 * * * ?
+    //定时清理多余图片或者视频每周一凌晨 ?
    /* @Scheduled(cron = "0 0 1 * * ?")*/
     @Scheduled(cron = "0 0 0 ? * MON")
     public void payTime(){
@@ -84,7 +84,7 @@ public class TimerTask {
         for (String s:imgname()) {//循环磁盘中的图片文件
             Integer type = s.lastIndexOf(".");
             String imgtype = s.toString().substring(type + 1, s.length());
-            String pathUrl = System.getProperty("bookdir");
+            String pathUrl = System.getProperty("bookdirs");
             if (imgtypes.contains(imgtype)) {//判断是否是图片
                 if (paths.contains(s)==false) {//判断图片是否多余（本地图片在数据库中不存在）
                     String url = pathUrl.substring(0, pathUrl.length() - 1) + "/images/" + s;
@@ -99,7 +99,7 @@ public class TimerTask {
         for (String s:videoname()) {//循环磁盘中的视频文件
             Integer type = s.lastIndexOf(".");
             String imgtype = s.toString().substring(type + 1, s.length());
-            String pathUrl = System.getProperty("bookdir");
+            String pathUrl = System.getProperty("bookdirs");
             if (videotypes.contains(imgtype)) {//是否为视频
                 if (videopaths.contains(s)==false) {//判断视频是否多余（本地视频在数据库中不存在）
                     String url = pathUrl.substring(0, pathUrl.length() - 1) + "/upload/" + s;
@@ -114,7 +114,7 @@ public class TimerTask {
     }
 
     public List<String> imgname(){
-        String pathUrl=System.getProperty("bookdir");
+        String pathUrl=System.getProperty("bookdirs");
         List<String> names=new ArrayList<String>();
         /*new filenameFilter接口，重写接口内部的一个方法*/
         String path=pathUrl.substring(0,pathUrl.length()-1)+"/images";
@@ -134,7 +134,7 @@ public class TimerTask {
     }
 
     public List<String> videoname(){
-        String pathUrl=System.getProperty("bookdir");
+        String pathUrl=System.getProperty("bookdirs");
         List<String> names=new ArrayList<String>();
         /*new filenameFilter接口，重写接口内部的一个方法*/
         String path=pathUrl.substring(0,pathUrl.length()-1)+"/upload";
