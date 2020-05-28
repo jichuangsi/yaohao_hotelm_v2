@@ -1305,7 +1305,7 @@ public class Order {
                 if (imgs().contains(type.toLowerCase())) {
                     double fileSize = (double) upload.getSize() / 1024 / 1024;//MB
                     if (fileSize <= Double.valueOf(15)) {//判断资源是否小于15mbcopyInputStreamToFile
-                        String pathUrl = System.getProperty("bookdir");
+                        String pathUrl = System.getProperty("bookdirs");
                         String url = pathUrl + "upload";
                         //要上传的路径（包括存储的绝对路径和文件名.后缀）
                         File file3 = new File(url + "\\" + newName);
