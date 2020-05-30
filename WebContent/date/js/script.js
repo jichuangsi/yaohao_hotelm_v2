@@ -39,7 +39,7 @@ $(document).ready(function(){
         var type=str.indexOf("&")
         var ss=str.substring(num + 1,type);
         var arr = ss.split("="); //各个参数放到数组里
-        return arr[1];
+        return arr[1];//第一个参数
     }
     function UrlSearchs() { //获取url里面的参数
         var name, value;
