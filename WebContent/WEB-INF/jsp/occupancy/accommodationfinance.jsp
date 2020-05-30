@@ -183,6 +183,16 @@
             简体中文
         </button>
     </div>
+    <div class="layui-col-xs12 layui-col-md6 layui-col-md-offset3" >
+        <div class=" layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+            <ul class="layui-tab-title">
+                <li lay-id="tab0" class="layui-this" lang>bedrent</li>
+                <li lay-id="tab1" lang>wholes</li>
+               <%-- <li lay-id="tab2" lang>other</li>--%>
+            </ul>
+        </div>
+
+    </div>
     <div class="layui-col-xs12 layui-col-md6 layui-col-md-offset3">
         <div class="layui-row date">
             <div id="j_weeklyCalendar" class="myWeeklyCanlendar">
@@ -210,7 +220,7 @@
                                 </div>
                                 <div class="layui-btn layui-btn-normal layui-btn-sm"
                                      style="float: right;margin-top: 5px;font-size:10px;"
-                                     onclick="date(${item.roomNumber},${item.roomId})" lang>check</div>
+                                     onclick="date(${item.roomNumber},${item.roomId},0)" lang>check</div>
                             </h4>
                             <div class="layui-colla-content layui-show">
                                 <div class="layui-row">
@@ -244,10 +254,8 @@
 
         </div>
 
-
     </div>
 </div>
-
 </body>
 <div id="add" class="layui-fluid" style="display: none">
     <form class="layui-form" autocomplete="off" lay-filter="test">
@@ -381,6 +389,141 @@
     </form>
 </div>
 
+<div id="addwhole" class="layui-fluid" style="display: none">
+    <form class="layui-form" autocomplete="off" lay-filter="test">
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span lang>order</span>:</label>
+            <div class="layui-input-block widths">
+                <input type="hidden" name="roomId"/>
+                <input type="text" name="orderNumber" id="order" class="layui-input " lay-verify="required">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span lang>patform</span>:</label>
+            <div class="layui-input-block widths">
+                <select name="platformId" lay-verify="required" id="pt">
+                    <c:forEach items="${plist}" var="item">
+                        <option value="${item.id}">${item.name}</option>
+                    </c:forEach>
+
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span lang>supplier</span>:</label>
+            <div class="layui-input-block widths">
+                <input type="text" name="hotelmName" value="" readonly  class="layui-input">
+                <input type="hidden" name="hotelmId" class="layui-input" value="" readonly>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span lang>roomNumber</span>:</label>
+            <div class="layui-input-block widths">
+                <input type="hidden" name="roomId" value="" lay-verify="required">
+                <input type="text" name="roomNumber" class="layui-input" value="" readonly lay-verify="required">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span lang>currency</span>:</label>
+            <div class="layui-input-block widths">
+                <select name="currency" lay-verify="required">
+                    <option value="-1"></option>
+                    <option value="1" lang>RMB</option>
+                    <option value="2" lang>PHP</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span lang>Price</span>:</label>
+            <div class="layui-input-block widths">
+                <input type="text" name="money" class="layui-input " lay-verify="required">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span lang>deposit</span>:</label>
+            <div class="layui-input-block widths">
+                <input type="text" name="deposit" class="layui-input " lay-verify="required">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span lang>checkin</span>:</label>
+            <div class="layui-input-block widths">
+                <input type="text" name="checkinTime" id="checkinTime" class="layui-input time"
+                       lay-verify="required">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span lang>checkout</span>:</label>
+            <div class="layui-input-block widths">
+                <input type="text" name="checkoutTime" class="layui-input time" id="checkoutTime" lay-verify="required">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span lang>name</span>:</label>
+            <div class="layui-input-block widths">
+                <input type="text" name="name" class="layui-input " lay-verify="required">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span lang>genderName</span>:</label>
+            <div class="layui-input-block widths">
+                <input type="text" name="genderName" class="layui-input " lay-verify="required">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span lang>phone</span>:</label>
+            <div class="layui-input-block widths">
+                <input type="text" name="phoneNumber" class="layui-input " lay-verify="required">
+            </div>
+        </div>
+
+        <%--<div class="layui-form-item">
+            <label class="layui-form-label"><span lang>checknumber</span>:</label>
+            <div class="layui-input-block widths">
+                <input type="text" name="checkinNumber" id="checkinNumber" class="layui-input " lay-verify="required">
+            </div>
+        </div>--%>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span lang>checkinRoom</span>:</label>
+            <div class="layui-input-block widths">
+                <input type="text" name="checkinRoom" id="checkinRoom" class="layui-input " lay-verify="required">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span lang>account</span>:</label>
+            <div class="layui-input-block widths">
+                <input type="radio" name="isdao" value="2" title="是">
+                <input type="radio" name="isdao" value="1" title="否" checked="">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span lang>accounts</span>:</label>
+            <div class="layui-input-block widths">
+                <select name="account" lay-verify="required" id="zh">
+                    <c:forEach items="${alist}" var="item">
+                        <option value="${item.id}">${item.name}</option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span lang>intype</span>:</label>
+            <div class="layui-input-block widths">
+                <%--	<input type="text" name="type" id="type" class="layui-input " lay-verify="required">--%>
+                <select name="type" lay-verify="required" id="rzlx" lay-filter="rzlx">
+                    <option value="3" lang>自有整租</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <div class="layui-btn" lay-submit lay-filter="addMenuwhole" lang>Submission</div>
+            </div>
+        </div>
+
+    </form>
+</div>
 <script>
     function add() {
         k = layer.open({
@@ -399,11 +542,27 @@
         registerWords();
         setLanguage(getCookieVal("lang"));
     }
-
+    function addwhole() {
+        k = layer.open({
+            type: 1,
+            area: ['60%', '90%'],
+            anim: 2,
+            title: '添加订单',
+            maxmin: true,
+            /* shadeClose: true, //点击遮罩关闭*/
+            content: $('#addwhole'),
+            cancel: function () {
+                window.location.reload();
+                $("#addwhole").css('display', 'none');
+            }
+        });
+        registerWords();
+        setLanguage(getCookieVal("lang"));
+    }
     /* $(".layui-layer-close").on('click',function () {
 
      })*/
-    function date(value, value2) {
+    function date(value, value2,value3) {
         index = layer.open({
             type: 2,
             area: ['90%', '90%'],
@@ -411,7 +570,7 @@
             title: value + '房',
             maxmin: true,
             shadeClose: true, //点击遮罩关闭
-            content: '../date/date.html?roomId=' + value2,
+            content: '../date/date.html?roomId=' + value2+"&type="+value3,
             cancel: function () {
                 window.location.reload();
             }
@@ -428,11 +587,17 @@
     });
 </script>
 <script>
+    var ss = 0;
+    var ps = 1;
     layui.use(['element', 'form', 'laydate', 'laypage'], function () {
         var element = layui.element,
             laypage = layui.laypage,
             laydate = layui.laydate,
             form = layui.form;
+
+        element.on('tab(docDemoTabBrief)', function (data) {
+            ss = data.index;
+        });
 
         $('.time').each(function () {
             laydate.render({
@@ -449,10 +614,31 @@
         form.render()
 
         $(document).on('click', '.toadd', function () {
-            getData($(this))
+            if (ss==1){//整租
+                getDatas($(this))
+            } else {
+                getData($(this))
+            }
+
         });
         function getData(obj) {
             add();
+            var id = $(obj).parent().parent().parent().find('input[name=roomId]').val();
+            var roomNumber = $(obj).parent().parent().parent().find('input[name=roomNumber]').val();
+            var hotelmId = $(obj).parent().parent().parent().find('input[name=supplierId]').val();
+            var hotelmName = $(obj).parent().parent().parent().find('input[name=supplierName]').val();
+            var time = getNowFormatDate();
+            form.val('test', {
+                "roomNumber": roomNumber,
+                "roomId": id,
+                "hotelmId":hotelmId,
+                "hotelmName":hotelmName
+                /*  "checkinTime": time + " 00:00:00"*/
+            });
+        }
+
+        function getDatas(obj) {
+            addwhole();
             var id = $(obj).parent().parent().parent().find('input[name=roomId]').val();
             var roomNumber = $(obj).parent().parent().parent().find('input[name=roomNumber]').val();
             var hotelmId = $(obj).parent().parent().parent().find('input[name=supplierId]').val();
@@ -527,7 +713,56 @@
                             document.getElementById("order").focus();      // 给这个id的文本框提供焦点
                         } else {
                             layer.msg('新增订单成功！');
-                            location.href = "${ctx}/Order/occupancy.do";
+                            location.href = "${ctx}/Order/alloccupancy.do";
+                        }
+                    },
+                    error: function (data) {
+                    }
+                })
+                return false
+            } else {
+                console.log(123)
+            }
+        });
+
+        form.on('submit(addMenuwhole)', function (obj) {
+            var param = obj.field;
+            console.log(param)
+            //判断下拉框
+            if (param.currency == -1) {
+                layer.msg('请选择币种!');
+                return false;
+            }
+            var checkin = param.checkinTime;
+            var checkout = param.checkoutTime;
+            if (checkin > checkout) {
+                layer.msg('时间不正确!');
+                return;
+            }
+            var reg = new RegExp('^[1-9](\\d{1,9})((\\.\\d{1,3})?)$');
+            var s = param.money;
+            if (reg.test(s)) {
+                console.log('true');
+            } else {
+                layer.msg('价格输入不正确，不超过9位数!');
+                return;
+            }
+            if (daywhole(param)) {
+                $.ajax({
+                    cache: false,                                             //是否使用缓存提交 如果为TRUE 会调用浏览器的缓存 而不会提交
+                    type: "POST",                                           //上面3行都是必须要的
+                    url: '${ctx}/WholeHotel/addOrder.do',       //地址 type 带参数
+                    data: param,                         // IDCardValue 自定义的。相当于name把值赋予给 他可以在servlet 获取
+                    async: false,                                          // 是否 异步 提交
+                    success: function (result) {                          // 不出现异常 进行立面方
+                        if (result != 1) {
+                            layer.msg('新增订单失败，入住时间段内无足够空床');
+                            //提示框
+                            document.getElementById("order").value = "";     //这个id的文本框的值 将会清空
+                            document.getElementById("order").focus();      // 给这个id的文本框提供焦点
+                        } else {
+                            layer.msg('新增订单成功！');
+                            location.href = "${ctx}/Order/alloccupancy.do";
                         }
                     },
                     error: function (data) {
@@ -540,7 +775,6 @@
         });
 
 
-        // 默认周历
         weeklyCalendar('#j_weeklyCalendar', {
             //点击日期回调
             clickDate: function (dateTime) {
@@ -554,8 +788,8 @@
                 $.ajax({
                     cache: false,                                             //是否使用缓存提交 如果为TRUE 会调用浏览器的缓存 而不会提交
                     type: "POST",                                           //上面3行都是必须要的
-                    url: '${ctx}/Order/joccupancy.do',       //地址 type 带参数
-                    data: "time=" + time,                         // IDCardValue 自定义的。相当于name把值赋予给 他可以在servlet 获取
+                    url: '${ctx}/Order/jalloccupancy.do',       //地址 type 带参数
+                    data: "time=" + time+"&type="+ss,                         // IDCardValue 自定义的。相当于name把值赋予给 他可以在servlet 获取
                     async: false,                                          // 是否 异步 提交
                     success: function (result) {
                         // 不出现异常 进行立面方
@@ -593,7 +827,7 @@
                             listStr += '<h2 class="layui-colla-title" style="font-size: 10px;">';
                             listStr += '<div class="layui-col-xs4 " style="padding-left: 15px;">';
                             listStr += '<h2 style="font-size:10px;">' + item.roomNumber + '</h2>' + '</div>';
-                            listStr += ' <div class="layui-btn layui-btn-normal " style="float: right;margin-top: 5px;font-size: 10px;" onclick="date(' + item.roomNumber + ',' + item.roomId + ')" lang>check</div>';
+                            listStr += ' <div class="layui-btn layui-btn-normal " style="float: right;margin-top: 5px;font-size: 10px;" onclick="date(' + item.roomNumber + ',' + item.roomId + ','+ss+')" lang>check</div>';
                             listStr += '</h2>';
                             listStr += '<div class="layui-colla-content layui-show"><div class="layui-row">';
                             listStr += '<input type="hidden" name="roomNumber" value="' + item.roomNumber + '">';
@@ -631,6 +865,10 @@
             }
         });
 
+
+
+
+
     });
 
     function day(param) {
@@ -655,7 +893,28 @@
         return bl;
     }
 
-
+    function daywhole(param) {
+        var bl = true
+        //下拉框选择改变事件
+        $.ajax({
+            cache: false,                                             //是否使用缓存提交 如果为TRUE 会调用浏览器的缓存 而不会提交
+            type: "POST",                                           //上面3行都是必须要的
+            url: '${ctx}/WholeHotel/YZDay.do',       //地址 type 带参数
+            data: param,                         // IDCardValue 自定义的。相当于name把值赋予给 他可以在servlet 获取
+            async: false,                                          // 是否 异步 提交
+            success: function (result) {                          // 不出现异常 进行立面方
+                console.log(result)
+                if (result !=0) {
+                    layer.msg('入住失败，入住时间段内无足够空房！' + ' \n ' + 'Check in failed');
+                    bl = false;
+                }
+            },
+            error: function (data) {
+                alert("请求失败")
+            }
+        })
+        return bl;
+    }
     function getNowFormatDate() {
         var date = new Date();
         var seperator1 = "-";

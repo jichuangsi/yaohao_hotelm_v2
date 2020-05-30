@@ -26,6 +26,24 @@ public class OrderPo {
     private String in;
     private String out;
     private Integer hometype;//房型
+    private double deposit;//押金
+    private Integer depositSattus;//押金状态0无操作1扣除，2退押金
+
+    public double getDeposit() {
+        return deposit;
+    }
+
+    public void setDeposit(double deposit) {
+        this.deposit = deposit;
+    }
+
+    public Integer getDepositSattus() {
+        return depositSattus;
+    }
+
+    public void setDepositSattus(Integer depositSattus) {
+        this.depositSattus = depositSattus;
+    }
 
     public Integer getHometype() {
         return hometype;

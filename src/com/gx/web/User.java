@@ -70,13 +70,17 @@ public class User {
         Gson gson=new Gson();
        return gson.toJson(count);
     }
-
+    @ResponseBody
     @RequestMapping("/update")
-    public ModelAndView update(@ModelAttribute UserPo userPo){
+    public Object update(@ModelAttribute UserPo userPo){
         ModelAndView mv=null;
-        userService.updateById(userPo);
-        mv=new ModelAndView("redirect:/User/tolist.do");
-        return mv;
+       Integer count= userService.nameById(userPo);
+       if (count==0){
+           count=userService.updateById(userPo);
+       }else {
+           count=1;
+       } Gson gson=new Gson();
+        return gson.toJson(count);
     }
 
     @RequestMapping("/delete")

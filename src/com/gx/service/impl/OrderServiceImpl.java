@@ -428,14 +428,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Page<OrderDetailsVo> selectFinanceTwo(String orderNumber, String roomName, Timestamp time,String reserName, String passName,  Page<OrderDetailsVo> vo) {
+    public Page<OrderDetailsVo> selectFinanceTwo(Integer platform,String orderNumber, String roomName, Timestamp time,String reserName, String passName,  Page<OrderDetailsVo> vo) {
         int start=0;
         if (vo.getCurrentPage()>1) {
             start=(vo.getCurrentPage()-1)*vo.getPageSize();
         }
-        List<OrderDetailsVo> list=orderDao.selectFinanceTwo(orderNumber,roomName, time,reserName,passName,start, vo.getPageSize());
+        List<OrderDetailsVo> list=orderDao.selectFinanceTwo(platform,orderNumber,roomName, time,reserName,passName,start, vo.getPageSize());
         vo.setResult(list);
-        int count=orderDao.countFinanceTwo(orderNumber,roomName, time,reserName,passName);
+        int count=orderDao.countFinanceTwo(platform,orderNumber,roomName, time,reserName,passName);
         vo.setTotal(count);
         vo.setTotalPage(vo.getTotal()%vo.getPageSize() != 0 ?vo.getTotal()/vo.getPageSize() + 1 : vo.getTotal()/vo.getPageSize());
         return vo;
@@ -459,5 +459,20 @@ public class OrderServiceImpl implements OrderService {
         vo.setTotal(count);
         vo.setTotalPage(vo.getTotal()%vo.getPageSize() != 0 ?vo.getTotal()/vo.getPageSize() + 1 : vo.getTotal()/vo.getPageSize());
         return vo;
+    }
+
+    @Override
+    public Integer WholeEmtyRoom(String time, Integer roomId) {
+        return orderDao.WholeEmtyRoom(time, roomId);
+    }
+
+    @Override
+    public OrderTimeVo WholeEmtyRoomDeatil(Integer roomId) {
+        return orderDao.WholeEmtyRoomDeatil(roomId);
+    }
+
+    @Override
+    public Integer updateDeposit(double depositSattus, Integer roomId) {
+        return orderDao.updateDeposit(depositSattus, roomId);
     }
 }

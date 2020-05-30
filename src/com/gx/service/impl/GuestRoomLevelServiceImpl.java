@@ -27,6 +27,7 @@ public class GuestRoomLevelServiceImpl implements GuestRoomLevelService {
         return guestRoomLevelDao.listwhole(hometype);
     }
 
+
     @Override
     public Page<guestRoomLevelPo> pagelistwhole(String hometype, Page<guestRoomLevelPo> vo) {
         int start=0;
@@ -71,14 +72,14 @@ public class GuestRoomLevelServiceImpl implements GuestRoomLevelService {
     //合约
 
     @Override
-    public Page<guestRoomLevelPo> pagelistother(String hometype, Page<guestRoomLevelPo> vo) {
+    public Page<guestRoomLevelPo> pagelistother(String hometype,Integer supplierId, Page<guestRoomLevelPo> vo) {
         int start=0;
         if (vo.getCurrentPage()>1) {
             start=(vo.getCurrentPage()-1)*vo.getPageSize();
         }
-        List<guestRoomLevelPo> list=guestRoomLevelDao.pagelistother(hometype,start, vo.getPageSize());
+        List<guestRoomLevelPo> list=guestRoomLevelDao.pagelistother(hometype,supplierId,start, vo.getPageSize());
         vo.setResult(list);
-        Integer count=guestRoomLevelDao.countlistother(hometype);
+        Integer count=guestRoomLevelDao.countlistother(hometype,supplierId);
         if (count==null){
             count=0;
         }

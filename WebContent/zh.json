@@ -19,8 +19,8 @@
 	"orderDetails":"订单明细",
 	"financeialStatistics":"财务报表",
 	"set":"设置",
-	"Account":"账号设置",
-	"out":"退出",
+	"operator":"账号设置",
+	"outsys":"退出",
 	"year":"年",
 	"check":"查看空房",
 	"bed":"间",
@@ -126,7 +126,11 @@
 	"Received":"已收账",
 	"Reservations":"预定人",
 	"Subscriber":"预定电话",
-	"passenger":"入住人"
+	"passenger":"入住人",
+	"alloccupancy":"入住情况",
+	"deposit":"押金",
+	"cost":"成本",
+	"deposits":"扣除押金"
 
 
 }

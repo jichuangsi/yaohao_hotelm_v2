@@ -36,13 +36,14 @@
     <!--  //新增订单-->
     <insert id="inserAll" parameterType="com.gx.po.OrderPo" useGeneratedKeys="true" keyProperty="id">
      INSERT INTO `order` (orderNumber,status,platformId,money,currency,hotelmId,roomId,checkinTime,checkoutTime,orderTime,
-     passengerId,isdao,daoTime,checkinNumber,checkinRoom,account,checkinDay,`type`,hometype)
+     passengerId,isdao,daoTime,checkinNumber,checkinRoom,account,checkinDay,`type`,hometype,deposit,depositSattus)
      values (#{orderNumber,jdbcType=VARCHAR},#{status,jdbcType=INTEGER}
      ,#{platformId,jdbcType=INTEGER},#{money,jdbcType=DOUBLE}
      ,#{currency,jdbcType=INTEGER},#{hotelmId,jdbcType=INTEGER},#{roomId,jdbcType=INTEGER},#{checkinTime,jdbcType=TIMESTAMP}
      ,#{checkoutTime,jdbcType=TIMESTAMP},#{orderTime,jdbcType=TIMESTAMP},#{passengerId,jdbcType=INTEGER},#{isdao,jdbcType=INTEGER}
      ,#{daoTime,jdbcType=TIMESTAMP},#{checkinNumber,jdbcType=INTEGER},#{checkinRoom,jdbcType=INTEGER},#{account,jdbcType=INTEGER},#{checkinDay,jdbcType=INTEGER},
-    #{type,jdbcType=INTEGER} ,#{hometype,jdbcType=INTEGER})
+    #{type,jdbcType=INTEGER} ,#{hometype,jdbcType=INTEGER},#{deposit,jdbcType=DOUBLE}
+     ,#{depositSattus,jdbcType=INTEGER})
   </insert>
     <!--已确认-->
     <select id="list" resultType="com.gx.vo.OrderDetailsVo">
@@ -284,7 +285,8 @@
       </update>-->
 
     <update id="updateStatus">
-      UPDATE `order` SET `status`=#{status,jdbcType=INTEGER} WHERE `id`=#{id,jdbcType=INTEGER}
+      UPDATE `order` SET `status`=#{status,jdbcType=INTEGER}
+       WHERE `id`=#{id,jdbcType=INTEGER}
     </update>
 
     <select id="selectByOrderNumber" resultType="com.gx.po.OrderPo">
@@ -932,6 +934,9 @@
         INNER JOIN `passenger` pas ON o.`inpasssId`=pas.`id`
         INNER JOIN `guestroomlevel` g ON g.id=o.`hometype`
         WHERE o.`status`=6
+        <if test="platform!='' and platform!=null">
+            AND pl.`id` =#{platform,jdbcType=INTEGER}
+        </if>
         <if test="orderNumber!='' and orderNumber!=null">
             AND o.`orderNumber` like CONCAT('%',#{orderNumber,jdbcType=VARCHAR},'%')
         </if>
@@ -959,6 +964,9 @@
         INNER JOIN `passenger` pa ON o.`passengerId`=pa.`id`
         INNER JOIN `passenger` pas ON o.`inpasssId`=pas.`id`
         WHERE o.`status`=6
+        <if test="platform!='' and platform!=null">
+            AND pl.`id` =#{platform,jdbcType=INTEGER}
+        </if>
         <if test="orderNumber!='' and orderNumber!=null">
             AND o.`orderNumber` like CONCAT('%',#{orderNumber,jdbcType=VARCHAR},'%')
         </if>
@@ -1002,4 +1010,24 @@
          WHERE `platformId`=#{platformId,jdbcType=INTEGER}
     </select>
 
+
+    <select id="WholeEmtyRoom" resultType="java.lang.Integer">
+       SELECT COUNT(*)
+         FROM `order` o INNER JOIN `guestroomlevel` g
+         ON o.`hometype`=g.id
+        WHERE DATE_FORMAT(#{time,jdbcType=VARCHAR}, '%Y-%m-%d')  >= DATE_FORMAT(`checkinTime`, '%Y-%m-%d')
+        AND DATE_FORMAT(#{time,jdbcType=VARCHAR}, '%Y-%m-%d') &lt; DATE_FORMAT(`checkoutTime`, '%Y-%m-%d')
+        AND o.`roomId`=#{roomId,jdbcType=INTEGER} AND o.`status`!=6 AND o.`status`!=3
+    </select>
+    <select id="WholeEmtyRoomDeatil" resultType="com.gx.vo.OrderTimeVo">
+         SELECT *,s.id AS supplierId
+         FROM `room` r INNER JOIN  `guestroomlevel` g
+        ON  r.`guestRoomLevelID`=g.id
+        INNER JOIN `supplier` s ON s.id=r.`supplierID`
+        WHERE r.id=#{roomId,jdbcType=INTEGER}
+    </select>
+
+    <update id="updateDeposit">
+       UPDATE `order` SET `depositSattus` =#{depositSattus,jdbcType=INTEGER} WHERE `id`=#{roomId,jdbcType=INTEGER}
+    </update>
 </mapper>

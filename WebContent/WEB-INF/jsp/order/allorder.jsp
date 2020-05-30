@@ -62,11 +62,6 @@
                     <c:forEach items="${plist}" var="list">
                         <option value="${list.id}">${list.name}</option>
                     </c:forEach>
-                       <%-- <option value="2" <c:if test="${status==2}"> selected</c:if> lang>已确认</option>
-                        <option value="3" <c:if test="${status==3}"> selected</c:if> lang>已取消</option>
-                        <option value="5" <c:if test="${status==5}"> selected</c:if> lang>已入住</option>
-                        <option value="6" <c:if test="${status==6}"> selected</c:if> lang>已退房</option>
-                        <option value="0" <c:if test="${status==0}"> selected</c:if> lang>已到账</option>--%>
                     </select>
             </div>
             <div class="layui-input-inline">
@@ -109,9 +104,10 @@
             <th lang>orderday</th>
             <th lang>roomPrice</th>
             <th lang>receivable</th>
+            <th lang>deposit</th>
             <th lang>Reservations</th>
             <th lang>Subscriber</th>
-            <c:if test="${status!=0}"><%--到账--%>
+            <c:if test="${status!=0}">
                 <th lang>passenger</th>
                 <th lang>phone</th>
             </c:if>
@@ -153,6 +149,7 @@
                         <th>${item.money}(PHP)</th>
                     </c:if>
                 </c:if>
+                <th>${item.deposit}</th>
                 <th>${item.name}</th>
                 <th>${item.phoneNumber}</th>
                 <c:if test="${status!=0}">
@@ -437,6 +434,11 @@
 
         //退房
         window.checkout = function (value2) {
+            var depost=2;//退还
+            var depost=confirm("押金是否退还");
+            if (depost==false) {//扣除
+                depost=1;
+            }
             var time;
             layer.prompt({
                 formType: 0,
@@ -447,13 +449,13 @@
                 time = value;
                 if (value.indexOf("-") == -1) {
                     alert("格式不正确"); //得到value
+                    return;
                 }
-                alert(value); //得到value
                 $.ajax({
                     cache: false,                                             //是否使用缓存提交 如果为TRUE 会调用浏览器的缓存 而不会提交
                     type: "POST",                                           //上面3行都是必须要的
                     url: '${ctx}/Order/updateStatus.do',       //地址 type 带参数
-                    data: "orderNumber=" + value2 + "&status=6&time=" + time,                         // IDCardValue 自定义的。相当于name把值赋予给 他可以在servlet 获取
+                    data: "orderNumber=" + value2 + "&status=6&time=" + time+"&depositSattus="+depost,                         // IDCardValue 自定义的。相当于name把值赋予给 他可以在servlet 获取
                     async: false,                                          // 是否 异步 提交
                     success: function (result) {                          // 不出现异常 进行立面方
                         var platform = document.getElementById("platform").value;

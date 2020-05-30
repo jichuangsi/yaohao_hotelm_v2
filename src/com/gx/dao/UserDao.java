@@ -30,4 +30,6 @@ public interface UserDao {
 
 	//分页需要
 	public List<UserPo>fuzzyselect(String name);
+
+	public Integer nameById(UserPo userPo);
 }

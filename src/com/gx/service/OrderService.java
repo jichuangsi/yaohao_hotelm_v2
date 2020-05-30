@@ -117,9 +117,16 @@ public interface OrderService {
 
     public Integer updateRegister(Integer inpasssId,Integer id);
 
-    public Page<OrderDetailsVo> selectFinanceTwo(String orderNumber, String roomName, Timestamp time,String reserName, String passName, Page<OrderDetailsVo> vo);
+    public Page<OrderDetailsVo> selectFinanceTwo(Integer platform,String orderNumber, String roomName, Timestamp time,String reserName, String passName, Page<OrderDetailsVo> vo);
 
     public Integer selectWhole(String time,Integer roomId,Integer id);
 
     public Page<OrderDetailsVo> orderByplatform(Integer platformId,Page<OrderDetailsVo> vo);
+
+    //=================================5-29=======================//
+    //判断这个时间此房间是否为空
+    public Integer WholeEmtyRoom( String time,Integer roomId);
+    //查看房间详情
+    public OrderTimeVo WholeEmtyRoomDeatil( Integer roomId);
+    public Integer updateDeposit(double depositSattus,Integer roomId);
 }

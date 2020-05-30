@@ -8,8 +8,19 @@ import java.util.List;
 public interface AccountDao {
     public List<AccountPo> list();
 
-    public int inserAll(AccountPo accountPo);
-    public int updateStatus(@Param("id") int id,@Param("status") int status);
+    public Integer inserAll(AccountPo accountPo);
+    public Integer updateById(AccountPo po);
 
-    public int deleteAccount(int id);
+    public Integer deleteAccount(Integer id);
+
+    public List<AccountPo> pageFuzzyselect(@Param("name") String name,@Param("start") int start, @Param("size") int size);
+    public Integer countFuzzyselect(@Param("name") String name);
+
+    public Integer selectYZ(@Param("name") String name);
+
+    public AccountPo selectByName(@Param("name") String name);
+
+    public Integer updateStatusById(Integer id);
+
+    public Integer AccountById(@Param("id") Integer id,@Param("name") String name);
 }

@@ -41,60 +41,24 @@ public class OrderDetailsVo {
     private String reserationName;//预定人
     private String mobile;//预定人手机号
 
-   /* private double receivableRMB;
-    private double ReceivedRMB;
-    private double UncollectedRMB;
-    private double receivablePHP;
-    private double ReceivedPHP;
-    private double UncollectedPHP;
+    private Double deposit;//押金
+    private Integer depositSattus;//押金状态0无操作1扣除，2退押金
 
-    public double getReceivableRMB() {
-        return receivableRMB;
+    public Double getDeposit() {
+        return deposit;
     }
 
-    public void setReceivableRMB(double receivableRMB) {
-        this.receivableRMB = receivableRMB;
+    public void setDeposit(Double deposit) {
+        this.deposit = deposit;
     }
 
-    public double getReceivedRMB() {
-        return ReceivedRMB;
+    public Integer getDepositSattus() {
+        return depositSattus;
     }
 
-    public void setReceivedRMB(double receivedRMB) {
-        ReceivedRMB = receivedRMB;
+    public void setDepositSattus(Integer depositSattus) {
+        this.depositSattus = depositSattus;
     }
-
-    public double getUncollectedRMB() {
-        return UncollectedRMB;
-    }
-
-    public void setUncollectedRMB(double uncollectedRMB) {
-        UncollectedRMB = uncollectedRMB;
-    }
-
-    public double getReceivablePHP() {
-        return receivablePHP;
-    }
-
-    public void setReceivablePHP(double receivablePHP) {
-        this.receivablePHP = receivablePHP;
-    }
-
-    public double getReceivedPHP() {
-        return ReceivedPHP;
-    }
-
-    public void setReceivedPHP(double receivedPHP) {
-        ReceivedPHP = receivedPHP;
-    }
-
-    public double getUncollectedPHP() {
-        return UncollectedPHP;
-    }
-
-    public void setUncollectedPHP(double uncollectedPHP) {
-        UncollectedPHP = uncollectedPHP;
-    }*/
 
     public String getMobile() {
         return mobile;

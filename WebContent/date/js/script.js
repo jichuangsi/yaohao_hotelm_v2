@@ -1,5 +1,16 @@
 $(document).ready(function(){
 
+    function getRootPath() {
+        var curWwwPath = window.document.location.href;
+        var pathName = window.document.location.pathname;
+        var pos = curWwwPath.indexOf(pathName);
+        var localhostPath = curWwwPath.substring(0, pos);
+        //获取带"/"的项目名，如：/zdss-web
+
+        var projectName = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
+        return projectName;
+
+    }
 	var date = new Date();
 	var d = date.getDate();
 	var m = date.getMonth();
@@ -25,6 +36,15 @@ $(document).ready(function(){
         var name, value;
         var str = location.href; //取得整个地址栏
         var num = str.indexOf("?")
+        var type=str.indexOf("&")
+        var ss=str.substring(num + 1,type);
+        var arr = ss.split("="); //各个参数放到数组里
+        return arr[1];
+    }
+    function UrlSearchs() { //获取url里面的参数
+        var name, value;
+        var str = location.href; //取得整个地址栏
+        var num = str.indexOf("&")
         str = str.substr(num + 1); //取得所有参数   stringvar.substr(start [, length ]
         var arr = str.split("="); //各个参数放到数组里
         return arr[1];
@@ -64,9 +84,9 @@ $(document).ready(function(){
                 $.ajax({
                     cache:false,                                       //是否使用缓存提交 如果为TRUE 会调用浏览器的缓存 而不会提交
                     type: "post",
-                    url: '/hotelm/Order/monthRoom.do',
+                    url:getRootPath()+ '/Order/allmonthRoom.do',
                     dataType: "json",//地址 type 带参数"id="+id+"&timeOne="+from+"&timeTwo="+to,
-                    data:"time="+time+"&roomId="+id,
+                    data:"time="+time+"&roomId="+id+"&type="+UrlSearchs(),
                     async:false,                                          // 是否 异步 提交
                     success: function (result) {
                         var events=[];
@@ -108,7 +128,7 @@ $(document).ready(function(){
             dayClick: function(date, jsEvent, view) {//日程区块，单击时触发
                 var id=UrlSearch();
                 console.log(id);
-                opens(id);
+                //opens(id);
             }
 
 		});
@@ -128,7 +148,7 @@ $(document).ready(function(){
             $.ajax({
                 cache: false,
                 type: "post",
-                url: "/hotelm/RoomSet/updateAcount.do",
+                url: getRootPath()+ "/RoomSet/updateAcount.do",
                 data:"id="+id+"&roomAcount="+value,
                 async: false,
                 success: function(res) {

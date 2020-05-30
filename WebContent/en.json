@@ -19,8 +19,8 @@
 	"orderDetails":"order details",
 	"financeialStatistics":"Financeial statistics",
 	"set":"Set up",
-	"Account":"Account Settings",
-	"out":"Sign out",
+	"operator":"Account Settings",
+	"outsys":"Sign out",
 	"year":"year",
 	"check":"View empty rooms",
 	"bed":"Bed",
@@ -126,7 +126,11 @@
 	"Received":"Received",
 	"Reservations":"Reservations",
 	"Subscriber":"Subscriber phone",
-	"passenger":"passenger"
+	"passenger":"passenger",
+	"alloccupancy":"Occupancy",
+	"deposit":"deposit",
+	"cost":"cost",
+	"deposits":"Deduct deposit"
 
 
 

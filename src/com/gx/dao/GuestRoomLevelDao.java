@@ -26,9 +26,9 @@ public interface GuestRoomLevelDao {
     public Integer countlistwhole(@Param("hometype")String hometype);
 
     //合约
-    public List<guestRoomLevelPo> pagelistother(@Param("hometype")String hometype, @Param("start")int start, @Param("size")int size );
+    public List<guestRoomLevelPo> pagelistother(@Param("hometype")String hometype,@Param("supplierId")Integer supplierId, @Param("start")int start, @Param("size")int size );
 
-    public Integer countlistother(@Param("hometype")String hometype);
+    public Integer countlistother(@Param("hometype")String hometype,@Param("supplierId")Integer supplierId);
     public List<guestRoomLevelPo> listother(String hometype);
 
     public Integer insertsg(SupplierAndGuestPo po);

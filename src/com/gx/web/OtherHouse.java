@@ -43,7 +43,8 @@ public class OtherHouse {
     private PassengerService passengerService;
 
     @RequestMapping("/homeType")
-    public ModelAndView homeType(@RequestParam(value = "hometype",required = false)String hometype,
+    public ModelAndView homeType(@RequestParam(value = "supplierId",required = false)Integer supplierId,
+            @RequestParam(value = "hometype",required = false)String hometype,
                                  @RequestParam(value = "currentPage",required = false)Integer currentPage) {
         ModelAndView mv = null;
         mv = new ModelAndView("/otherHouse/hometypeManagement");
@@ -55,7 +56,7 @@ public class OtherHouse {
         /* List<SupplierPo> rlist=supplierService.listHaveAll();*/
         Page<guestRoomLevelPo> vo=new Page<guestRoomLevelPo>();
         vo.setCurrentPage(currentPage);
-        Page<guestRoomLevelPo> list=guestRoomLevelService.pagelistother(hometype,vo);
+        Page<guestRoomLevelPo> list=guestRoomLevelService.pagelistother(hometype,supplierId,vo);
         String name=null;
         List<guestRoomLevelPo> glist=guestRoomLevelService.listother(name);
         /* List<guestRoomLevelPo> list=guestRoomLevelService.listwhole(hometype);*/
@@ -277,16 +278,7 @@ public class OtherHouse {
         int day=TimeTransformation.nDaysBetweenTwoDate(strn,strn2);
         orderPo.setCheckinDay(day);
         orderPo.setOrderTime(d);
-       /* RoomSetPo roomSetPo=roomSetService.selectById(orderPo.getRoomId());
-        if (orderPo.getHotelmId()==null){
-
-            if (roomSetPo.getSupplierID()==null){
-                orderPo.setHotelmId(roomSetPo.getSupplierId());
-            }else {
-                orderPo.setHotelmId(roomSetPo.getSupplierID());
-            }
-        }
-        orderPo.setHometype(roomSetPo.getGuestRoomLevelID());*/
+        orderPo.setDepositSattus(0);
        orderPo.setRoomId(1);
         Integer counts=orderService.inserAll(orderPo);
         Gson gson = new Gson();

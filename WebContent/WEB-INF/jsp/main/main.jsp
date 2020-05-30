@@ -81,6 +81,22 @@
 
 				<ul class="nav nav-list">
 					<li>
+						<a id="allHomeId" onclick="allHomement()" class="dropdown-toggle">
+							<i class="icon-home"></i>
+							<span class="menu-text" lang>alloccupancy</span>
+							<b class="arrow icon-angle-down"></b>
+						</a>
+
+						<ul class="submenu">
+							<li>
+								<a id="alloccupancyId" onclick="alloccupancy()">
+									<i class="icon-double-angle-right"></i>
+									<span lang>alloccupancy</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li>
 						<a id="privateId" onclick="privateapartment()" class="dropdown-toggle">
 							<i class="icon-home"></i>
 							<span class="menu-text" lang>private</span>
@@ -216,15 +232,21 @@
 								</a>
 							</li>
 							<li>
+								<a id="accounts" onclick="accounts()" href="#">
+									<i class="icon-double-angle-right"></i>
+									<span lang>accounts</span>
+								</a>
+							</li>
+							<li>
 								<a id="operator" onclick="operator()" href="#">
 									<i class="icon-double-angle-right"></i>
-									<span lang>Account</span>
+									<span lang>operator</span>
 								</a>
 							</li>
 							<li>
 								<a id="exit" onclick="exit()" href="#">
 									<i class="icon-double-angle-right"></i>
-									<span lang>out</span>
+									<span lang>outsys</span>
 								</a>
 							</li>
 
@@ -831,6 +853,13 @@
 
             }
 
+            function accounts() {
+                var a=document.getElementById("setup").getElementsByTagName('span')[0].innerHTML;
+                document.getElementById("bigGuide").innerHTML=a+"";
+                var s=document.getElementById("accounts").getElementsByTagName('span')[0].innerHTML;
+                document.getElementById("smallGuide").innerHTML=s+"";
+                document.getElementById('Mainid').src='${ctx}/Account/tolist.do';
+            }
             ////////////////////////////////////////////////////////////////////////////
 
 			function allorder() {
@@ -848,6 +877,24 @@
                 document.getElementById("smallGuide").innerHTML=s+"";
                 document.getElementById('Mainid').src='${ctx}/Order/financetwo.do';
             }
+            
+            
+            
+            //==================================================================================================//
+			
+			function alloccupancy() {
+                var time=getNowFormatDate();
+                var a=document.getElementById("allHomeId").getElementsByTagName('span')[0].innerHTML;
+                document.getElementById("bigGuide").innerHTML=a+"";
+                var s=document.getElementById("alloccupancyId").getElementsByTagName('span')[0].innerHTML;
+                document.getElementById("smallGuide").innerHTML=s+"";
+                document.getElementById('Mainid').src='${ctx}/Order/alloccupancy.do?time='+time+"&type=0";;
+            }
+
+
+
+
+
             //第一天
             function getCurrentMonthFirst(){
                 var date = new Date();

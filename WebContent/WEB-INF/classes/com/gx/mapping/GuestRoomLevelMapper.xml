@@ -74,24 +74,39 @@
     </if>
   </select>
   <!--合约-->
-  <select id="pagelistother" resultType="com.gx.po.guestRoomLevelPo">
-    SELECT * FROM guestroomlevel where status=3
+  <select id="pagelistother" resultType="com.gx.vo.OtherHouseVo">
+    SELECT * ,s.id AS supplierId
+    FROM guestroomlevel g INNER JOIN `supplierandguest` sg ON sg.`gId`=g.id
+    INNER JOIN `supplier` s ON s.id=sg.`suId`
+    WHERE STATUS=3
     <if test="hometype!=null and hometype!=''">
       AND guestRoomLevel like CONCAT('%',#{hometype,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="supplierId">
+      AND  s.id=#{supplierId,jdbcType=INTEGER}
     </if>
     LIMIT #{start},#{size}
   </select>
   <select id="countlistother"  resultType="java.lang.Integer">
-    SELECT COUNT(*) FROM guestroomlevel where status=3
+    SELECT COUNT(*) FROM guestroomlevel g INNER JOIN `supplierandguest` sg ON sg.`gId`=g.id
+    INNER JOIN `supplier` s ON s.id=sg.`suId`
+    where status=3
     <if test="hometype!=null and hometype!=''">
       AND  guestRoomLevel like CONCAT('%',#{hometype,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="supplierId">
+      AND  s.id=#{supplierId,jdbcType=INTEGER}
     </if>
   </select>
+
   <select id="listother" resultType="com.gx.po.guestRoomLevelPo">
-    SELECT * FROM guestroomlevel where status=3
+    SELECT *
+    FROM guestroomlevel
+    where status=3
     <if test="hometype!=null and hometype!=''">
       AND  guestRoomLevel like CONCAT('%',#{hometype,jdbcType=VARCHAR},'%')
     </if>
+
   </select>
 
   <insert id="insertsg" useGeneratedKeys="true" keyProperty="booksID" parameterType="com.gx.po.SupplierAndGuestPo" >

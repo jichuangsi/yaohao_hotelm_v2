@@ -23,14 +23,17 @@
   
 <!--   查询全部 -->
   <select id="list" resultType="com.gx.po.AccountPo">
-    SELECT * FROM account
+    SELECT * FROM account where status=1
   </select>
-  
 <!--   修改要用的精确查询 -->
    <select id="selectById" resultType="com.gx.po.AccountPo" parameterType="java.lang.Integer">
     select * from account where id=#{id,jdbcType=INTEGER}
    </select>
-   
+
+    <!--   修改要用的精确查询 -->
+    <select id="selectByName" resultType="com.gx.po.AccountPo">
+    select * from account where name=#{name,jdbcType=VARCHAR}
+   </select>
 <!--    修改 -->
    <update id="updateById" parameterType="com.gx.po.AccountPo">
       UPDATE account SET name=#{name,jdbcType=VARCHAR},
@@ -38,8 +41,9 @@
                    WHERE id = #{id,jdbcType=INTEGER}
    </update>
    
-   <delete id="deleteById" parameterType="java.lang.Integer">
-    DELETE FROM account WHERE id = #{id,jdbcType=INTEGER}
+   <delete id="deleteAccount" parameterType="java.lang.Integer">
+         UPDATE account SET status=2
+                   WHERE id = #{id,jdbcType=INTEGER}
   </delete>
   
 
@@ -47,19 +51,31 @@
    <select id="pageFuzzyselect" resultType="com.gx.po.AccountPo">
       select *
     from account
-    WHERE NAME like CONCAT('%',#{NAME,jdbcType=VARCHAR},'%')
-    limit #{start},#{pageSize}
+    WHERE status=1
+    <if test="name!=null and name!=''">
+      and `name` like CONCAT('%',#{name,jdbcType=VARCHAR},'%')
+    </if>
+    limit #{start},#{size}
   </select>
   
   
   <select id="countFuzzyselect" resultType="java.lang.Integer">
-      select count(*)
-    WHERE name like CONCAT('%',#{name,jdbcType=VARCHAR},'%')
+      select count(*) from account
+      WHERE status=1
+      <if test="name!=null and name!=''">
+          and `name` like CONCAT('%',#{name,jdbcType=VARCHAR},'%')
+      </if>
   </select>
   
   
   <select id="selectYZ" resultType="java.lang.Integer">
-    SELECT COUNT(*) FROM commodity Where commodityName=#{commodityName}
+    SELECT COUNT(*) FROM account Where `name`=#{name,jdbcType=VARCHAR}
   </select>
-          
+<update id="updateStatusById">
+     UPDATE account SET status=1
+                   WHERE id = #{id,jdbcType=INTEGER}
+</update>
+    <select id="AccountById" resultType="java.lang.Integer">
+         SELECT COUNT(*) FROM `account` WHERE id!=#{id,jdbcType=INTEGER} AND `name`=#{name,jdbcType=VARCHAR}
+    </select>
 </mapper>

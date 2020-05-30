@@ -211,15 +211,21 @@ public interface OrderDao {
 
     public Integer updateRegister(@Param("inpasssId") Integer inpasssId, @Param("id") Integer id);
 
-    public List<OrderDetailsVo> selectFinanceTwo(@Param("orderNumber") String orderNumber, @Param("roomName") String roomName,
+    public List<OrderDetailsVo> selectFinanceTwo(@Param("platform")Integer platform,@Param("orderNumber") String orderNumber, @Param("roomName") String roomName,
                                                  @Param("time") Timestamp time, @Param("reserName") String reserName, @Param("passName") String passName,
                                                  @Param("start") int start, @Param("size") int size);
 
-    public Integer countFinanceTwo(@Param("orderNumber") String orderNumber, @Param("roomName") String roomName,
+    public Integer countFinanceTwo(@Param("platform")Integer platform,@Param("orderNumber") String orderNumber, @Param("roomName") String roomName,
                                    @Param("time") Timestamp time, @Param("reserName") String reserName, @Param("passName") String passName);
 
     public Integer selectWhole( @Param("time") String time,@Param("roomId") Integer roomId,@Param("id") Integer id);
 
     public List<OrderDetailsVo> orderByplatform(@Param("platformId") Integer platformId,@Param("start") int start, @Param("size") int size);
     public Integer countOrderByplatform(@Param("platformId") Integer platformId);
+
+
+    public Integer WholeEmtyRoom(@Param("time") String time,@Param("roomId") Integer roomId);
+    public OrderTimeVo WholeEmtyRoomDeatil(@Param("roomId") Integer roomId);
+
+    public Integer updateDeposit(@Param("depositSattus") double depositSattus,@Param("roomId") Integer roomId);
 }

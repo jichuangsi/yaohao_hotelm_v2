@@ -20,7 +20,8 @@ public interface GuestRoomLevelService {
 
     public guestRoomLevelPo selectById(Integer id);
     //合约
-    public Page<guestRoomLevelPo> pagelistother(String hometype,Page<guestRoomLevelPo> vo);
+    public Page<guestRoomLevelPo> pagelistother(String hometype,Integer supplierId,Page<guestRoomLevelPo> vo);
+
     public List<guestRoomLevelPo> listother(String hometype);
 
     public Integer insertsg(SupplierAndGuestPo po);

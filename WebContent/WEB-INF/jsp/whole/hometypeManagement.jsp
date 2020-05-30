@@ -218,7 +218,12 @@
 					<input type="text" name="money" class="layui-input " lay-verify="required">
 				</div>
 			</div>
-
+			<div class="layui-form-item">
+				<label class="layui-form-label"><span lang>deposit</span>:</label>
+				<div class="layui-input-block widths">
+					<input type="text" name="deposit" class="layui-input " lay-verify="required">
+				</div>
+			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label"><span lang>checkin</span>:</label>
 				<div class="layui-input-block widths">

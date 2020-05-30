@@ -278,6 +278,7 @@ public class WholeHotel {
             }
         }
         orderPo.setHometype(roomSetPo.getGuestRoomLevelID());
+        orderPo.setDepositSattus(0);
         Integer counts=orderService.inserAll(orderPo);
         Gson gson = new Gson();
         return gson.toJson(counts);

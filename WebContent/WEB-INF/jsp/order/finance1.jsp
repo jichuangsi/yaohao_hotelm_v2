@@ -58,6 +58,16 @@
 			<div class="layui-row">
 				<form class="layui-form layui-col-md12">
 					<div class="layui-input-inline">
+						<%--<input type="text" name="platform" id="platform" placeholder="平台" autocomplete="off"
+                               class="layui-input" style="width: 200px;" value="${platform}">--%>
+						<select name="platform"  id="platform">
+							<option value="">请选择平台</option>
+							<c:forEach items="${plist}" var="list">
+								<option value="${list.id}">${list.name}</option>
+							</c:forEach>
+						</select>
+					</div>
+					<div class="layui-input-inline">
 						<input type="text" name="orderNumber" id="orderNumber" value="${orderNumber}" placeholder="订单号" autocomplete="off" class="layui-input" style="width: 200px;">
 					</div>
 					<div class="layui-input-inline">
@@ -78,20 +88,15 @@
 			<table class="layui-table">
 				<thead>
 				<tr>
-					<%--<th lang>serial</th>--%>
 					<th lang>patform</th>
 					<th lang>orderNumber</th>
 					<th lang>roomNumber</th>
 					<th lang>orderTime</th>
 					<th lang>orderday</th>
+					<th lang>receivable</th>
+					<th lang>deposit</th>
 					<th lang>roomPrice</th>
-					<%--<th><span lang>receivable</span>(RMB)</th>
-					<th><span lang>Received</span>(RMB)</th>
-					<th><span lang>Uncollected</span>(RMB)</th>
-					<th><span lang>receivable</span>(PHP)</th>
-					<th><span lang>Received</span>(PHP)</th>
-					<th><span lang>Uncollected</span>(PHP)</th>--%>
-
+					<th lang>cost</th>
 				</tr>
 				<c:forEach items="${list.result}" var="item">
 				<tr>
@@ -103,50 +108,71 @@
 					<c:if test="${item.type!=2}">
 						<th>${item.roomNumber}</th>
 					</c:if>
-					<th>${item.orderTime}</th>
+					<th>${item.checkintime}<br>${item.checkouttime}</th>
 					<th>${item.checkinDay}</th>
+					<c:if test="${item.currency==1}">
+						<c:if test="${item.isdao==1}"><%--未到账--%>
+							<th style="color: #8a3104">(RMB)${item.money}</th>
+						</c:if>
+						<c:if test="${item.isdao==2}"><%--到账--%>
+							<th>(RMB)${item.money}</th>
+						</c:if>
+
+					</c:if>
+					<c:if test="${item.currency==2}">
+						<c:if test="${item.isdao==1}"><%--未到账--%>
+							<th style="color: #8a3104">(PHP)${item.money}</th>
+						</c:if>
+						<c:if test="${item.isdao==2}"><%--到账--%>
+							<th>(PHP)${item.money}</th>
+						</c:if>
+					</c:if>
+					<c:if test="${item.depositSattus!=1}">
+						<th>${item.deposit}</th>
+					</c:if>
+					<c:if test="${item.depositSattus==1}"><%--扣除--%>
+						<th style="color: #8a3104">${item.deposit}</th>
+					</c:if>
 					<c:if test="${item.type==2}">
 						<th></th>
 					</c:if>
 					<c:if test="${item.type!=2}">
 					<th>${item.referencePrice}</th>
 					</c:if>
-					<%--<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>--%>
-
+					<c:if test="${item.type!=2}">
+					<th>(RMB)${item.referencePrice*item.checkinDay}</th>
+					</c:if>
+					<c:if test="${item.type==2}"><%--合约--%>
+						<th></th>
+					</c:if>
 				</tr>
 				</c:forEach>
 				<tr>
-					<%--<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th>${receivableRMB}</th>
-					<th>${ReceivedRMB}</th>
-					<th>${UncollectedRMB}</th>
-					<th>${receivablePHP}</th>
-					<th>${ReceivedPHP}</th>
-					<th>${UncollectedPHP}</th>--%>
+					<th></th><th></th>
 						<th><span lang>receivable</span>(RMB)</th>
 						<th>${receivableRMB}</th>
 						<th><span lang>Received</span>(RMB)</th>
 						<th>${ReceivedRMB}</th>
 						<th><span lang>Uncollected</span>(RMB)</th>
 						<th>${UncollectedRMB}</th>
+					<th></th>
 				</tr>
 				<tr>
+					<th></th><th></th>
 					<th><span lang>receivable</span>(PHP)</th>
 					<th>${receivablePHP}</th>
 					<th><span lang>Received</span>(PHP)</th>
 					<th>${ReceivedPHP}</th>
 					<th><span lang>Uncollected</span>(PHP)</th>
 					<th>${UncollectedPHP}</th>
+					<th></th>
+				</tr>
+				<tr>
+					<th></th><th></th><th></th>
+					<th></th><th></th><th></th>
+					<th lang>deposits</th>
+					<th>${deposit}</th>
+					<th></th>
 				</tr>
 
 				</thead>
@@ -164,13 +190,14 @@
             pageCount:${list.totalPage},
             current:${list.currentPage},
             backFn: function (p) {
+                var platform = document.getElementById("platform").value;
                 var roomName = document.getElementById("roomName").value;
                 var orderNumber = document.getElementById("orderNumber").value;
                 var time = document.getElementById("time").value;
                 var reserName = document.getElementById("reserName").value;
                 var passName = document.getElementById("passName").value;
                 location.href = "${ctx}/Order/financetwo.do?roomName=" + roomName + "&orderNumber=" + orderNumber + "&time="
-                    + time + "&reserName=" + reserName + "&passName=" + passName + "&currentPage=" + p;
+                    + time + "&reserName=" + reserName + "&passName=" + passName + "&currentPage=" + p+"&platform="+platform;
             }
         });
 	</script>
@@ -192,13 +219,14 @@
             })
 
             form.on('submit(search)', function () {
+                var platform = document.getElementById("platform").value;
                 var roomName = document.getElementById("roomName").value;
                 var orderNumber = document.getElementById("orderNumber").value;
                 var time = document.getElementById("time").value;
                 var reserName = document.getElementById("reserName").value;
                 var passName = document.getElementById("passName").value;
                 location.href = "${ctx}/Order/financetwo.do?roomName=" + roomName + "&orderNumber=" + orderNumber + "&time="
-                    + time + "&reserName=" + reserName + "&passName=" + passName ;
+                    + time + "&reserName=" + reserName + "&passName=" + passName+"&platform="+platform ;
             });
 		})
 	</script>

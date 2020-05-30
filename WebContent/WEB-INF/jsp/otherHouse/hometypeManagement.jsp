@@ -55,6 +55,15 @@
 			<div class="layui-row">
 				<form class="layui-form layui-col-md12">
 					<div class="layui-input-inline">
+						<select name="supplierId">
+							<%--<option value="0">请选择</option>--%>
+							<c:forEach items="${slist}" var="item">
+								<option value="">选择供应商</option>
+								<option value="${item.id}">${item.supplierName}</option>
+							</c:forEach>
+						</select>
+					</div>
+					<div class="layui-input-inline">
 						<input type="text" name="homeType" placeholder="房型关键字" autocomplete="off"
 							   class="layui-input"  id="homeType" style="width: 200px;" value="${homeType}">
 					</div>
@@ -123,18 +132,20 @@
 				<th colspan="2">
 					<div class="layui-btn layui-btn-sm layui-btn-normal toadd" lang>addtype</div>
 				</th>
-				<th colspan="1">
+				<th colspan="2">
 					<div class="layui-btn layui-btn-sm layui-btn-normal toaddorder" lang>addorder</div>
 				</th>
 			</tr>
 			<tr>
 				<th lang>serial</th>
+				<th lang>supplier</th>
 				<th lang>homeType</th>
 				<th>操作</th>
 			</tr>
 			<c:forEach items="${list.result}" var="item">
 				<tr>
 					<th>${item.id}</th><%--onclick="data(${item.id},'${item.guestRoomLevel}')"--%>
+					<th >${item.supplierName}</th>
 					<th >${item.guestRoomLevel}</th>
 					<th>
 						<div class=" layui-btn layui-btn-normal layui-btn-sm"
@@ -229,7 +240,12 @@
 					<input type="text" name="money" class="layui-input " lay-verify="required">
 				</div>
 			</div>
-
+			<div class="layui-form-item">
+				<label class="layui-form-label"><span lang>deposit</span>:</label>
+				<div class="layui-input-block widths">
+					<input type="text" name="deposit" class="layui-input " lay-verify="required">
+				</div>
+			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label"><span lang>checkin</span>:</label>
 				<div class="layui-input-block widths">
