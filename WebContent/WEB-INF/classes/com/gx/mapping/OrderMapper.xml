@@ -1030,4 +1030,28 @@
     <update id="updateDeposit">
        UPDATE `order` SET `depositSattus` =#{depositSattus,jdbcType=INTEGER} WHERE `id`=#{roomId,jdbcType=INTEGER}
     </update>
+
+
+
+    <!--根据供应商查询-->
+    <select id="orderBySupplier" resultType="com.gx.vo.OrderDetailsVo">
+         SELECT o.* ,pl.`name`AS platformName,r.`roomNumber`,r.`referencePrice` AS referencePrice,g.`guestRoomLevel` AS guestRoomLevel
+ ,s.`id` AS supplierId,s.`supplierName` AS supplierName
+        FROM `order` o  INNER JOIN `platform` pl ON pl.id=o.`platformId`
+          INNER JOIN `room` r ON o.`roomId`=r.id
+          INNER JOIN `guestroomlevel` g ON g.id=o.`hometype`
+          INNER JOIN `supplier` s ON s.`id`=r.`supplierID`
+        WHERE r.`supplierID`=#{supplierID,jdbcType=INTEGER}
+         ORDER BY o.`orderTime`
+        LIMIT #{start},#{size}
+    </select>
+    <select id="countOrderBySupplier" resultType="java.lang.Integer">
+         SELECT COUNT(*)
+         FROM `order` o  INNER JOIN `platform` pl ON pl.id=o.`platformId`
+          INNER JOIN `room` r ON o.`roomId`=r.id
+          INNER JOIN `guestroomlevel` g ON g.id=o.`hometype`
+          INNER JOIN `supplier` s ON s.`id`=r.`supplierID`
+        WHERE r.`supplierID`=#{supplierID,jdbcType=INTEGER}
+         ORDER BY o.`orderTime`
+    </select>
 </mapper>

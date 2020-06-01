@@ -2316,4 +2316,60 @@ if (type==0) {
         return gson.toJson(dayList);
         //return mv;
     }
+
+
+    @RequestMapping("/orderBySupplier")
+    public ModelAndView orderBySupplier( @RequestParam(value = "supplierID",required = false)Integer supplierID,
+                                         @RequestParam(value = "currentPage",required = false)Integer currentPage){
+        ModelAndView mv = null;
+        mv = new ModelAndView("/supplier/supplierorder");
+        if (currentPage == null) {
+            currentPage = 1;
+        } else if (currentPage == 0) {
+            currentPage = 1;
+        }
+        Page<OrderDetailsVo> vo=new Page<OrderDetailsVo>();
+        vo.setCurrentPage(currentPage);
+        Page<OrderDetailsVo> list=orderService.orderBySupplier(supplierID,vo);
+        double receivableRMB=0d;
+        double ReceivedRMB=0d;
+        double UncollectedRMB=0d;
+        double receivablePHP=0d;
+        double ReceivedPHP=0d;
+        double UncollectedPHP=0d;
+        double deposit=0d;
+
+        for (OrderDetailsVo od: list.getResult()) {
+            if (od.getCurrency()==1){//人名币
+                receivableRMB+=od.getMoney();
+                if (od.getIsdao()==2){//未到账
+                    ReceivedRMB+=od.getMoney();
+                }else if (od.getIsdao()==1){
+                    UncollectedRMB+=od.getMoney();
+                }
+            }else if (od.getCurrency()==2){//菲律宾
+                receivablePHP+=od.getMoney();
+                if (od.getIsdao()==2){//未到账
+                    ReceivedPHP+=od.getMoney();
+                }else if (od.getIsdao()==1){
+                    UncollectedPHP+=od.getMoney();
+                }
+            }
+            if (od.getDepositSattus()==1){//扣除押金
+                deposit+=od.getDeposit();
+            }
+        }
+
+        mv.addObject("receivableRMB",receivableRMB);
+        mv.addObject("ReceivedRMB",ReceivedRMB);
+        mv.addObject("UncollectedRMB",UncollectedRMB);
+        mv.addObject("receivablePHP",receivablePHP);
+        mv.addObject("ReceivedPHP",ReceivedPHP);
+        mv.addObject("UncollectedPHP",UncollectedPHP);
+        mv.addObject("UncollectedPHP",UncollectedPHP);
+        mv.addObject("deposit",deposit);
+        mv.addObject("list",list);
+        return mv;
+    }
+
 }

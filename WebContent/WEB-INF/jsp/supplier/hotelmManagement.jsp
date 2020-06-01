@@ -121,7 +121,7 @@
 			<c:forEach items="${list.result}" var="item">
 				<tr>
 					<th>${item.id}</th>
-					<th>${item.supplierName}</th>
+					<th onclick="supplierOrder(${item.id})">${item.supplierName}</th>
 					<%--<th>${item.count}</th>--%>
 						<%--<th width="200px">备注</th>--%>
 				</tr>
@@ -215,7 +215,9 @@
                 var txtname = document.getElementById("txtname").value;
                 location.href = "${ctx}/Supplier/tolist.do?txtname=" + txtname ;
             });
-
+			window.supplierOrder=function (value) {
+                window.location='${ctx}/Order/orderBySupplier.do?supplierID='+value;
+			}
 		})
         function name(){
             var order=document.getElementById("supplierName").value;

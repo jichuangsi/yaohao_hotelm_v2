@@ -475,4 +475,18 @@ public class OrderServiceImpl implements OrderService {
     public Integer updateDeposit(double depositSattus, Integer roomId) {
         return orderDao.updateDeposit(depositSattus, roomId);
     }
+
+    @Override
+    public Page<OrderDetailsVo> orderBySupplier(Integer supplierID, Page<OrderDetailsVo> vo) {
+        int start=0;
+        if (vo.getCurrentPage()>1) {
+            start=(vo.getCurrentPage()-1)*vo.getPageSize();
+        }
+        List<OrderDetailsVo> list=orderDao.orderBySupplier(supplierID,start, vo.getPageSize());
+        vo.setResult(list);
+        int count=orderDao.countOrderBySupplier(supplierID);
+        vo.setTotal(count);
+        vo.setTotalPage(vo.getTotal()%vo.getPageSize() != 0 ?vo.getTotal()/vo.getPageSize() + 1 : vo.getTotal()/vo.getPageSize());
+        return vo;
+    }
 }
