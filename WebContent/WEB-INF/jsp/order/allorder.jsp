@@ -438,7 +438,10 @@
             var depost=confirm("押金是否退还");
             if (depost==false) {//扣除
                 depost=1;
+            }else {
+                depost=2;
             }
+
             var time;
             layer.prompt({
                 formType: 0,
